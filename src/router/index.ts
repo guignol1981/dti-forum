@@ -1,33 +1,27 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import HomePage from '../pages/HomePage.vue';
 
 Vue.use(VueRouter);
 
 export enum NomRoutes {
-    HOME = 'Home',
+    HomePage = 'Home',
     PUBLICATION = 'Publication'
 }
 
 const routes = [
     {
         path: '/',
-        name: NomRoutes.HOME,
-        component: Home
+        name: NomRoutes.HomePage,
+        component: HomePage
     },
     {
         path: '/publication/:id',
         name: NomRoutes.PUBLICATION,
         component: () =>
             import(
-                /* webpackChunkName: "publication" */ '../components/publication/PublicationDetailsPage.vue'
+                /* webpackChunkName: "publication" */ '../pages/PublicationDetailsPage.vue'
             )
-    },
-    {
-        path: '/about',
-        name: 'About',
-        component: () =>
-            import(/* webpackChunkName: "about" */ '../views/About.vue')
     }
 ];
 

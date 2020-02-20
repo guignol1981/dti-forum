@@ -11,17 +11,17 @@
 import Vue from 'vue';
 import { namespace } from 'vuex-class';
 import Component from 'vue-class-component';
-import PublicationDetailsGabarit from './PublicationDetailsGabarit.vue';
-import {
-    GETTER_PUBLICATION_CONSULTATION,
-    ACTION_CONSULTER_PUBLICATION
-} from '../../modules/Publications/PublicationModuleDefinition';
-import { Publication } from '../../modules/Publications/PublicationDomaine';
+import PublicationDetailsGabarit from '../components/publication/PublicationDetailsGabarit.vue';
 import {
     GETTER_PUBLICATION_REPONSES,
     ACTION_CHERCHER_PUBLICATION_REPONSES
-} from '../../modules/PublicationReponse/PublicationReponseModuleDefinitions';
-import { PublicationReponses } from '../../modules/PublicationReponse/PublicationReponseDomaine';
+} from '../modules/PublicationReponse/PublicationReponseModuleDefinitions';
+import { Publication } from '../modules/Publications/PublicationDomaine';
+import {
+    GETTER_PUBLICATION_CONSULTATION,
+    ACTION_CONSULTER_PUBLICATION
+} from '../modules/Publications/PublicationModuleDefinition';
+import { PublicationReponses } from '../modules/PublicationReponse/PublicationReponseDomaine';
 const publicationModule = namespace('publication');
 const publicationReponseModule = namespace('publicationReponse');
 
