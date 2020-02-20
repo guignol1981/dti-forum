@@ -1,0 +1,47 @@
+import { {{SINGULAR_PASCAL}} } from './{{SINGULAR_PASCAL}}Domaine';
+import { HttpService } from '@ulaval/modul-components/dist/utils/http/http';
+import Vue from 'vue';
+import { RestService } from '@/rest-service';
+
+export class {{SINGULAR_PASCAL}}Service implements RestService<{{SINGULAR_PASCAL}}> {
+  private readonly httpService: HttpService = Vue.prototype.$http;
+
+  public rechercher(): Promise<{{SINGULAR_PASCAL}}[]> {
+    return this.httpService
+      .execute<{{SINGULAR_PASCAL}}[]>({
+        method: 'get',
+        rawUrl: '/{{PLURAL_CAMEL}}'
+      })
+      .then(response => response.data);
+  }
+
+  public rechercherParId(id: string): Promise<{{SINGULAR_PASCAL}}> {
+    return this.httpService
+      .execute<{{SINGULAR_PASCAL}}>({
+        method: 'get',
+        rawUrl: `/{{PLURAL_CAMEL}}/${id}`
+      })
+      .then(response => response.data);
+  }
+
+  public modifier({{SINGULAR_CAMEL}}: {{SINGULAR_PASCAL}}): Promise<{{SINGULAR_PASCAL}}> {
+    return this.httpService
+      .execute<{{SINGULAR_PASCAL}}>({
+        method: 'put',
+        rawUrl: `/{{PLURAL_CAMEL}}/${{{SINGULAR_CAMEL}}.id}`,
+        data: {{SINGULAR_CAMEL}}
+      })
+      .then(response => response.data);
+  }
+
+  public supprimer(id: string): Promise<boolean> {
+    return this.httpService
+      .execute<void>({
+        method: 'delete',
+        rawUrl: `/{{PLURAL_CAMEL}}/${id}`
+      })
+      .then(() => true);
+  }
+}
+
+export const Factory = () => new {{SINGULAR_PASCAL}}Service();

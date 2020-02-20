@@ -1,0 +1,45 @@
+import { Module, ActionContext } from 'vuex';
+import { AppState } from '@/store/factory';
+import {{SINGULAR_PASCAL}}State from './{{SINGULAR_PASCAL}}State';
+import {
+  {{PLURAL_PASCAL}},
+} from './{{SINGULAR_PASCAL}}Domaine';
+import {
+  modifier{{PLURAL_PASCAL}}
+} from './{{SINGULAR_PASCAL}}Mutations';
+import {
+  GETTER_{{PLURAL_CONSTANT}},
+  MUTATION_{{PLURAL_CONSTANT}},
+  ACTION_CHERCHER_{{PLURAL_CONSTANT}},
+} from './{{SINGULAR_PASCAL}}ModuleDefinitions';
+
+export function {{SINGULAR_PASCAL}}ModuleFactory(
+  appState: AppState
+): Module<{{SINGULAR_PASCAL}}State, AppState> {
+  return {
+    namespaced: true,
+    state: new {{SINGULAR_PASCAL}}State(appState),
+    getters: {
+      [GETTER_{{PLURAL_CONSTANT}}]: (state: {{SINGULAR_PASCAL}}State) => state.{{PLURAL_CAMEL}},
+    },
+    mutations: {
+      [MUTATION_{{PLURAL_CONSTANT}}]: (
+        state: {{SINGULAR_PASCAL}}State,
+        {{PLURAL_CAMEL}}: {{PLURAL_PASCAL}}
+      ): void => modifier{{PLURAL_PASCAL}}(state, {{PLURAL_CAMEL}})
+    },
+    actions: {
+      [ACTION_CHERCHER_{{PLURAL_CONSTANT}}]: (
+        context: ActionContext<{{SINGULAR_PASCAL}}State, AppState>
+      ): void => {
+        context.state.restService
+          .rechercher()
+          .then(({{PLURAL_CAMEL}}: {{PLURAL_PASCAL}}) =>
+            context.commit(MUTATION_{{PLURAL_CONSTANT}}, {{PLURAL_CAMEL}})
+          );
+      }
+    }
+  };
+}
+
+export default {{SINGULAR_PASCAL}}ModuleFactory;

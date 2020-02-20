@@ -1,0 +1,3 @@
+export const GETTER_{{PLURAL_CONSTANT}} = '{{PLURAL_CAMEL}}';
+export const MUTATION_{{PLURAL_CONSTANT}} = '{{PLURAL_CAMEL}}';
+export const ACTION_CHERCHER_{{PLURAL_CONSTANT}} = 'chercher{{PLURAL_PASCAL}}';

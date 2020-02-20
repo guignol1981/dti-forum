@@ -1,0 +1,9 @@
+import {{SINGULAR_PASCAL}}State from './{{SINGULAR_PASCAL}}State';
+import { {{PLURAL_PASCAL}} } from './{{SINGULAR_PASCAL}}Domaine';
+
+export function modifier{{PLURAL_PASCAL}}(
+  state: {{SINGULAR_PASCAL}}State,
+  {{PLURAL_CAMEL}}: {{PLURAL_PASCAL}}
+): void {
+  state.{{PLURAL_CAMEL}} = [...{{PLURAL_CAMEL}}];
+}

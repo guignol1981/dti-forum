@@ -1,0 +1,25 @@
+import { {{SINGULAR_PASCAL}} } from "./{{SINGULAR_PASCAL}}Domaine";
+import { SET_1 } from "./{{SINGULAR_PASCAL}}Mock";
+import { RestService } from "@/rest-service";
+
+export class {{SINGULAR_PASCAL}}ServiceMock implements RestService<{{SINGULAR_PASCAL}}> {
+  private {{PLURAL_CAMEL}}: {{SINGULAR_PASCAL}}[] = SET_1;
+
+  public rechercher(): Promise<{{SINGULAR_PASCAL}}[]> {
+    return Promise.resolve<{{SINGULAR_PASCAL}}[]>([...this.{{PLURAL_CAMEL}}]);
+  }
+
+  public rechercherParId(id: string): Promise<{{SINGULAR_PASCAL}}> {
+    return Promise.resolve(this.{{PLURAL_CAMEL}}[0]);
+  }
+
+  public modifier(ressource: {{SINGULAR_PASCAL}}): Promise<{{SINGULAR_PASCAL}}> {
+    return Promise.resolve(this.{{PLURAL_CAMEL}}[0]);
+  }
+
+  public supprimer(id: string): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+}
+
+export const Factory = () => new {{SINGULAR_PASCAL}}ServiceMock();

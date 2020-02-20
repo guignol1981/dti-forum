@@ -1,12 +1,19 @@
+import { FrenchPlugin, ModulComponentPlugin } from "@ulaval/modul-components";
+import "@ulaval/modul-components/dist/modul.min.css";
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
-import store from "./store";
+import { StoreFactory } from "./store/factory";
+import FilterPlugin from "./FilterPlugin";
+
+Vue.use(ModulComponentPlugin);
+Vue.use(FrenchPlugin);
+Vue.use(FilterPlugin);
 
 Vue.config.productionTip = false;
 
 new Vue({
+  store: StoreFactory(),
   router,
-  store,
   render: h => h(App)
 }).$mount("#app");

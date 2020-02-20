@@ -1,0 +1,16 @@
+import {
+  {{PLURAL_PASCAL}},
+  {{SINGULAR_PASCAL}}
+} from './{{SINGULAR_PASCAL}}Domaine';
+import { AppState } from '@/store/factory';
+import { {{SINGULAR_PASCAL}}ServiceFactory } from './{{SINGULAR_PASCAL}}ServiceFactory';
+import { RestService } from '@/rest-service';
+
+export default class {{SINGULAR_PASCAL}}State {
+  public {{PLURAL_CAMEL}}: {{PLURAL_PASCAL}} = [];
+  public restService: RestService<{{SINGULAR_PASCAL}}>;
+
+  constructor(public readonly appState: AppState) {
+    this.restService = {{SINGULAR_PASCAL}}ServiceFactory();
+  }
+}

@@ -1,0 +1,5 @@
+describe('{{SINGULAR_PASCAL}}', () => {
+    it('', () => {
+        expect(true).toBe(true);
+    });
+});
