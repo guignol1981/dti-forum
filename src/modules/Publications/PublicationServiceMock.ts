@@ -3,10 +3,10 @@ import { SET_2 } from './PublicationMock';
 import { RestService } from '@/rest-service';
 
 export class PublicationServiceMock implements RestService<Publication> {
-    private publications: Publication[] = SET_2;
+    private publications: Publication[] = [...SET_2];
 
     public rechercher(): Promise<Publication[]> {
-        return Promise.resolve<Publication[]>([...this.publications]);
+        return Promise.resolve<Publication[]>(this.publications);
     }
 
     public rechercherParId(id: string): Promise<Publication> {
@@ -14,7 +14,7 @@ export class PublicationServiceMock implements RestService<Publication> {
     }
 
     public modifier(ressource: Publication): Promise<Publication> {
-        return Promise.resolve(this.publications[0]);
+        return Promise.resolve(ressource);
     }
 
     public supprimer(id: string): Promise<boolean> {

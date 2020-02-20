@@ -1,9 +1,7 @@
 <template>
     <div class="publication">
         <m-panel :highlighted="true" skin="dark" :padding="false">
-            <div slot="header" class="publication__header">
-                {{ publication.title | truncate(30) }}
-            </div>
+            <div slot="header" class="publication__header">{{ publication.title | truncate(30) }}</div>
             <div class="publication__body">{{ publication.body }}</div>
             <div slot="footer" class="publication__footer">
                 <div>
@@ -12,15 +10,13 @@
                         buttonSize="32px"
                         iconSize="20px"
                         skin="secondary"
-                    ></m-icon-button
-                    >(21)
+                    ></m-icon-button>(21)
                     <m-icon-button
-                        iconName="m-svg__arrow--down"
+                        @click="emitSupprimee(publication.id)"
                         buttonSize="32px"
                         iconSize="20px"
                         skin="secondary"
-                    ></m-icon-button
-                    >(12)
+                    ></m-icon-button>
                 </div>
                 <div>
                     <m-link :url="publicationDetailsLocation">détails</m-link>
@@ -31,7 +27,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { Publication } from '../../modules/Publications/PublicationDomaine';
 import { NomRoutes } from '../../router';
 import { Location } from 'vue-router';
@@ -40,6 +36,8 @@ import { Location } from 'vue-router';
 export default class PublicationVue extends Vue {
     @Prop({ required: true })
     public publication!: Publication;
+    @Emit('supprimee')
+    public emitSupprimee(id: string): void {}
 
     public publicationDetailsLocation: Location = {
         name: NomRoutes.PUBLICATION,

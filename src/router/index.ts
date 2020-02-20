@@ -5,14 +5,14 @@ import HomePage from '../pages/HomePage.vue';
 Vue.use(VueRouter);
 
 export enum NomRoutes {
-    HomePage = 'Home',
+    HOME_PAGE = 'Home',
     PUBLICATION = 'Publication'
 }
 
 const routes = [
     {
         path: '/',
-        name: NomRoutes.HomePage,
+        name: NomRoutes.HOME_PAGE,
         component: HomePage
     },
     {

@@ -15,7 +15,7 @@ import {
     MUTATION_MODIFIER_PUBLICATION,
     MUTATION_SUPPRIMER_PUBLICATION,
     ACTION_MODIFIER_PUBLICATION,
-    ACTION_SUPPRIMER_PUBLICATIONS,
+    ACTION_SUPPRIMER_PUBLICATION,
     ACTION_CONSULTER_PUBLICATION,
     MUTATION_PUBLICATION_CONSULTATION,
     GETTER_PUBLICATION_CONSULTATION
@@ -87,11 +87,15 @@ export function PublicationModuleFactory(
                         )
                     );
             },
-            [ACTION_SUPPRIMER_PUBLICATIONS]: (
+            [ACTION_SUPPRIMER_PUBLICATION]: (
                 context: ActionContext<PublicationState, AppState>,
                 id: string
             ): void => {
-                context.state.restService.supprimer(id);
+                context.state.restService
+                    .supprimer(id)
+                    .then(() =>
+                        context.commit(MUTATION_SUPPRIMER_PUBLICATION, id)
+                    );
             }
         }
     };
