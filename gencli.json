@@ -1,66 +1,66 @@
 {
-  "cliName": "dti-cli",
-  "fileNameCase": "pascal",
-  "folderNameCase": "pascal",
-  "templatePath": "src/cli-templates",
-  "entityConfigs": [
-    {
-      "name": "vue",
-      "path": "/src/components",
-      "prefix": "dti",
-      "fileConfigs": [
+    "cliName": "dti-cli",
+    "fileNameCase": "pascal",
+    "folderNameCase": "pascal",
+    "templatePath": "src/cli-templates",
+    "entityConfigs": [
         {
-          "name": "*.vue",
-          "template": "vue-template.txt"
+            "name": "vue",
+            "path": "/src/components",
+            "prefix": "dti",
+            "fileConfigs": [
+                {
+                    "name": "*.vue",
+                    "template": "vue-template.txt"
+                }
+            ]
+        },
+        {
+            "name": "module",
+            "path": "/src/modules",
+            "prefix": "dti",
+            "fileConfigs": [
+                {
+                    "name": "*Module.ts",
+                    "template": "module-template.txt"
+                },
+                {
+                    "name": "*Domaine.ts",
+                    "template": "domaine-template.txt"
+                },
+                {
+                    "name": "*State.ts",
+                    "template": "state-template.txt"
+                },
+                {
+                    "name": "*Mutations.ts",
+                    "template": "mutations-template.txt"
+                },
+                {
+                    "name": "*Service.ts",
+                    "template": "service-template.txt"
+                },
+                {
+                    "name": "*ModuleDefinitions.ts",
+                    "template": "module-definitions-template.txt"
+                },
+                {
+                    "name": "*Mock.ts",
+                    "template": "mock-template.txt"
+                },
+                {
+                    "name": "*ServiceMock.ts",
+                    "template": "service-mock-template.txt"
+                },
+                {
+                    "name": "*Mutations.spec.ts",
+                    "template": "test-template.txt"
+                },
+                {
+                    "name": "*ServiceFactory.ts",
+                    "template": "service-factory-template.txt"
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "module",
-      "path": "/src/modules",
-      "prefix": "dti",
-      "fileConfigs": [
-        {
-          "name": "*Module.ts",
-          "template": "module-template.txt"
-        },
-        {
-          "name": "*Domaine.ts",
-          "template": "domaine-template.txt"
-        },
-        {
-          "name": "*State.ts",
-          "template": "state-template.txt"
-        },
-        {
-          "name": "*Mutations.ts",
-          "template": "mutations-template.txt"
-        },
-        {
-          "name": "*Service.ts",
-          "template": "service-template.txt"
-        },
-        {
-          "name": "*ModuleDefinitions.ts",
-          "template": "module-definitions-template.txt"
-        },
-        {
-          "name": "*Mock.ts",
-          "template": "mock-template.txt"
-        },
-        {
-          "name": "*ServiceMock.ts",
-          "template": "mock-template.txt"
-        },
-        {
-          "name": "*Mutations.spec.ts",
-          "template": "test-template.txt"
-        },
-        {
-          "name": "*ServiceFactory.ts",
-          "template": "service-factory-template.txt"
-        }
-      ]
-    }
-  ]
+    ]
 }

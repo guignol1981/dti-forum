@@ -23,7 +23,7 @@
                     >(12)
                 </div>
                 <div>
-                    <m-link>détails</m-link>
+                    <m-link :url="publicationDetailsLocation">détails</m-link>
                 </div>
             </div>
         </m-panel>
@@ -33,11 +33,20 @@
 <script lang="ts">
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Publication } from '../../modules/Publications/PublicationDomaine';
+import { NomRoutes } from '../../router';
+import { Location } from 'vue-router';
 
 @Component
 export default class PublicationVue extends Vue {
     @Prop({ required: true })
     public publication!: Publication;
+
+    public publicationDetailsLocation: Location = {
+        name: NomRoutes.PUBLICATION,
+        params: {
+            id: this.publication.id
+        }
+    };
 }
 </script>
 

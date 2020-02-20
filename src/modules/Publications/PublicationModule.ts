@@ -5,7 +5,8 @@ import { Publications, Publication } from './PublicationDomaine';
 import {
     modifierPublications,
     modifierPublication,
-    supprimerPublication
+    supprimerPublication,
+    modifierPublicationConsultation
 } from './PublicationMutations';
 import {
     GETTER_PUBLICATIONS,
@@ -14,7 +15,10 @@ import {
     MUTATION_MODIFIER_PUBLICATION,
     MUTATION_SUPPRIMER_PUBLICATION,
     ACTION_MODIFIER_PUBLICATION,
-    ACTION_SUPPRIMER_PUBLICATIONS
+    ACTION_SUPPRIMER_PUBLICATIONS,
+    ACTION_CONSULTER_PUBLICATION,
+    MUTATION_PUBLICATION_CONSULTATION,
+    GETTER_PUBLICATION_CONSULTATION
 } from './PublicationModuleDefinition';
 
 export function PublicationModuleFactory(
@@ -25,7 +29,9 @@ export function PublicationModuleFactory(
         state: new PublicationState(appState),
         getters: {
             [GETTER_PUBLICATIONS]: (state: PublicationState) =>
-                state.publications
+                state.publications,
+            [GETTER_PUBLICATION_CONSULTATION]: (state: PublicationState) =>
+                state.publicationConsultation
         },
         mutations: {
             [MUTATION_PUBLICATIONS]: (
@@ -39,7 +45,11 @@ export function PublicationModuleFactory(
             [MUTATION_SUPPRIMER_PUBLICATION]: (
                 state: PublicationState,
                 id: string
-            ): void => supprimerPublication(state, id)
+            ): void => supprimerPublication(state, id),
+            [MUTATION_PUBLICATION_CONSULTATION]: (
+                state: PublicationState,
+                publication: Publication
+            ): void => modifierPublicationConsultation(state, publication)
         },
         actions: {
             [ACTION_CHERCHER_PUBLICATIONS]: (
@@ -49,6 +59,19 @@ export function PublicationModuleFactory(
                     .rechercher()
                     .then((publicatons: Publications) =>
                         context.commit(MUTATION_PUBLICATIONS, publicatons)
+                    );
+            },
+            [ACTION_CONSULTER_PUBLICATION]: (
+                context: ActionContext<PublicationState, AppState>,
+                id: string
+            ): void => {
+                context.state.restService
+                    .rechercherParId(id)
+                    .then((publication: Publication) =>
+                        context.commit(
+                            MUTATION_PUBLICATION_CONSULTATION,
+                            publication
+                        )
                     );
             },
             [ACTION_MODIFIER_PUBLICATION]: (

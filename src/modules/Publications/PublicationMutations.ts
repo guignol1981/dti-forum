@@ -25,3 +25,10 @@ export function supprimerPublication(
 ): void {
     state.publications.slice(state.publications.map(p => p.id).indexOf(id), 1);
 }
+
+export function modifierPublicationConsultation(
+    state: PublicationState,
+    publication: Publication
+): void {
+    state.publicationConsultation = publication;
+}

@@ -1,21 +1,12 @@
 import { Module, ActionContext } from 'vuex';
 import { AppState } from '@/store/factory';
 import PublicationReponseState from './PublicationReponseState';
-import {
-    PublicationReponses,
-    PublicationReponse
-} from './PublicationReponseDomaine';
-import {
-    modifierPublicationReponses,
-    supprimerPublicationReponse,
-    ajouterPublicatonReponse
-} from './PublicationReponseMutations';
+import { PublicationReponses } from './PublicationReponseDomaine';
+import { modifierPublicationReponses } from './PublicationReponseMutations';
 import {
     GETTER_PUBLICATION_REPONSES,
     MUTATION_PUBLICATION_REPONSES,
-    ACTION_CHERCHER_PUBLICATION_REPONSES,
-    MUTATION_AJOUTER_PUBLICATION_REPONSE,
-    MUTATION_SUPPRIMER_PUBLICATION_REPONSE
+    ACTION_CHERCHER_PUBLICATION_REPONSES
 } from './PublicationReponseModuleDefinitions';
 
 export function PublicationReponseModuleFactory(
@@ -32,19 +23,7 @@ export function PublicationReponseModuleFactory(
             [MUTATION_PUBLICATION_REPONSES]: (
                 state: PublicationReponseState,
                 publicationReponses: PublicationReponses
-            ): void => modifierPublicationReponses(state, publicationReponses),
-            [MUTATION_PUBLICATION_REPONSES]: (
-                state: PublicationReponseState,
-                publicationReponses: PublicationReponses
-            ): void => modifierPublicationReponses(state, publicationReponses),
-            [MUTATION_AJOUTER_PUBLICATION_REPONSE]: (
-                state: PublicationReponseState,
-                publicationReponse: PublicationReponse
-            ): void => ajouterPublicatonReponse(state, publicationReponse),
-            [MUTATION_SUPPRIMER_PUBLICATION_REPONSE]: (
-                state: PublicationReponseState,
-                id: string
-            ): void => supprimerPublicationReponse(state, id)
+            ): void => modifierPublicationReponses(state, publicationReponses)
         },
         actions: {
             [ACTION_CHERCHER_PUBLICATION_REPONSES]: (

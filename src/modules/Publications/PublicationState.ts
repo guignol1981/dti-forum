@@ -5,6 +5,7 @@ import { RestService } from '@/rest-service';
 
 export default class PublicationState {
     public publications: Publications = [];
+    public publicationConsultation: Publication | null = null;
     public restService: RestService<Publication>;
 
     constructor(public readonly appState: AppState) {

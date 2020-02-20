@@ -1,33 +1,50 @@
 <template>
-  <PublicationDetailsGabarit :publications="publications"></PublicationDetailsGabarit>
+    <div>
+        <PublicationDetailsGabarit
+            :publication="publication"
+            :publicationReponses="publicationReponses"
+        ></PublicationDetailsGabarit>
+    </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import { namespace } from 'vuex-class';
-const publicationModule = namespace('publication');
 import Component from 'vue-class-component';
 import PublicationDetailsGabarit from './PublicationDetailsGabarit.vue';
 import {
-  GETTER_PUBLICATIONS,
-  ACTION_CHERCHER_PUBLICATIONS
+    GETTER_PUBLICATION_CONSULTATION,
+    ACTION_CONSULTER_PUBLICATION
 } from '../../modules/Publications/PublicationModuleDefinition';
-import { Publications } from '../../modules/Publications/PublicationDomaine';
+import { Publication } from '../../modules/Publications/PublicationDomaine';
+import {
+    GETTER_PUBLICATION_REPONSES,
+    ACTION_CHERCHER_PUBLICATION_REPONSES
+} from '../../modules/PublicationReponse/PublicationReponseModuleDefinitions';
+import { PublicationReponses } from '../../modules/PublicationReponse/PublicationReponseDomaine';
+const publicationModule = namespace('publication');
+const publicationReponseModule = namespace('publicationReponse');
 
 @Component({
-  components: {
-    PublicationDetailsGabarit
-  }
+    components: {
+        PublicationDetailsGabarit
+    }
 })
 export default class PublicationDetailsPage extends Vue {
-  @publicationModule.Getter(GETTER_PUBLICATIONS)
-  public publications!: Publications;
-  @publicationModule.Getter(ACTION_CHERCHER_PUBLICATIONS)
-  public chercherPublication!: () => void;
+    @publicationModule.Getter(GETTER_PUBLICATION_CONSULTATION)
+    public publication!: Publication;
+    @publicationReponseModule.Getter(GETTER_PUBLICATION_REPONSES)
+    public publicationReponses!: PublicationReponses;
 
-  protected created(): void {
-    this.chercherPublication();
-  }
+    @publicationModule.Action(ACTION_CONSULTER_PUBLICATION)
+    public consulterPublication!: (id: string) => void;
+    @publicationReponseModule.Action(ACTION_CHERCHER_PUBLICATION_REPONSES)
+    public chercherPublicationReponses!: () => void;
+
+    protected created(): void {
+        this.consulterPublication(this.$route.params['id']);
+        this.chercherPublicationReponses();
+    }
 }
 </script>
 

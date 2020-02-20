@@ -25,8 +25,13 @@ export const SET_1: Publications = [
     }
 ];
 
-export const SET_2: Publications = new Array(5).fill(undefined).map(_ => ({
-    id: '123',
-    title: lorem.generateWords(Math.floor(Math.random() * 20)),
-    body: lorem.generateWords(Math.floor(Math.random() * 100))
-}));
+export const SET_2: Publications = new Array(5).fill(undefined).map(
+    (_, i) => (
+        i++,
+        {
+            id: i.toString(),
+            title: lorem.generateWords(Math.floor(Math.random() * 20)),
+            body: lorem.generateWords(Math.floor(Math.random() * 100))
+        }
+    )
+);
