@@ -1,7 +1,7 @@
 export interface Publication {
-    id: string;
-    title: string;
-    body: string;
+    id?: string;
+    titre: string;
+    corps: string;
 }
 
 export type Publications = Publication[];

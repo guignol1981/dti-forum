@@ -16,6 +16,13 @@ const FilterPlugin: PluginObject<void> = {
                 return value.slice(0, to) + ellipsis;
             }
         );
+
+        Vue.filter(
+            'translate',
+            (value: string, params: any, nb: number = 1) => {
+                return Vue.prototype.$i18n.translate(value, params, nb);
+            }
+        );
     }
 };
 

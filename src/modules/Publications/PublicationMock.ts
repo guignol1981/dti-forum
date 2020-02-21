@@ -1,37 +1,28 @@
 import { Publications } from './PublicationDomaine';
-import { LoremIpsum } from 'lorem-ipsum';
-
-const lorem = new LoremIpsum({
-    sentencesPerParagraph: {
-        max: 8,
-        min: 4
-    },
-    wordsPerSentence: {
-        max: 16,
-        min: 4
-    }
-});
+import { LoremGenerate, RandomMinMax } from '@/utils/utils';
 
 export const SET_1: Publications = [
     {
         id: '123',
-        title: 'title 1',
-        body: 'test'
+        titre: 'titre 1',
+        corps: 'test'
     },
     {
         id: '123',
-        title: 'title 2',
-        body: 'body 3'
+        titre: 'titre 2',
+        corps: 'corps 3'
     }
 ];
 
-export const SET_2: Publications = new Array(5).fill(undefined).map(
-    (_, i) => (
-        i++,
-        {
-            id: i.toString(),
-            title: lorem.generateWords(Math.floor(Math.random() * 20)),
-            body: lorem.generateWords(Math.floor(Math.random() * 100))
-        }
-    )
-);
+export const SET_2: Publications = new Array(RandomMinMax(1, 10))
+    .fill(undefined)
+    .map(
+        (_, i) => (
+            i++,
+            {
+                id: i.toString(),
+                titre: LoremGenerate(RandomMinMax(10, 30)),
+                corps: LoremGenerate(RandomMinMax(20, 100))
+            }
+        )
+    );

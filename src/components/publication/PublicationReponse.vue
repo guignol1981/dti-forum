@@ -1,7 +1,5 @@
 <template>
-    <m-panel class="publication-reponse">
-        {{ publicationReponse.body }}
-    </m-panel>
+    <m-panel class="publication-reponse">{{ publicationReponse.body }}</m-panel>
 </template>
 
 <script lang="ts">
@@ -11,7 +9,7 @@ import { PublicationReponse } from '../../modules/PublicationReponse/Publication
 
 @Component
 export default class PublicationReponseVue extends Vue {
-    @Prop({ default: '123' })
+    @Prop({ required: true })
     public publicationReponse!: PublicationReponse;
 }
 </script>
