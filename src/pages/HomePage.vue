@@ -3,12 +3,15 @@
         :publications="publications"
         @publicationSupprimee="onPublicationSupprimee($event)"
     >
-        <div slot="header"></div>
+        <div slot="header">
+            <EnteteVue></EnteteVue>
+        </div>
         <div slot="corps">
             <PublicationVue
                 v-for="(publication, index) in publications"
                 :key="index"
                 :publication="publication"
+                @modifiee="onPublicationModifee($event)"
                 @supprimee="onPublicationSupprimee($event)"
             ></PublicationVue>
             <PublicationFormulaireVue
@@ -33,7 +36,8 @@
         GETTER_PUBLICATIONS,
         ACTION_CHERCHER_PUBLICATIONS,
         ACTION_SUPPRIMER_PUBLICATION,
-        ACTION_AJOUTER_PUBLICATION
+        ACTION_AJOUTER_PUBLICATION,
+        ACTION_MODIFIER_PUBLICATION
     } from '../modules/Publications/PublicationModuleDefinition';
     import {
         Publications,
@@ -42,11 +46,13 @@
     import HomeGabarit from '../components/home/HomeGabarit.vue';
     import PublicationVue from '../components/publication/Publication.vue';
     import PublicationFormulaireVue from '../components/publication/PublicationFormulaire.vue';
+    import EnteteVue from '../components/entete/Entete.vue';
 
     const publicationModule = namespace('publication');
 
     @Component({
         components: {
+            EnteteVue,
             HomeGabarit,
             PublicationVue,
             PublicationFormulaireVue
@@ -58,6 +64,8 @@
 
         @publicationModule.Action(ACTION_CHERCHER_PUBLICATIONS)
         public chercherPublications!: () => void;
+        @publicationModule.Action(ACTION_MODIFIER_PUBLICATION)
+        public modifierPublication!: (publication: Publication) => void;
         @publicationModule.Action(ACTION_AJOUTER_PUBLICATION)
         public ajouterPublication!: (publication: Publication) => void;
         @publicationModule.Action(ACTION_SUPPRIMER_PUBLICATION)
@@ -71,6 +79,10 @@
 
         public onAjouterPublicationClicked(): void {
             this.formulairePublicationOuvert = true;
+        }
+
+        public onPublicationModifee(publication: Publication): void {
+            this.modifierPublication(publication);
         }
 
         public onPublicationCree(publication: Publication): void {

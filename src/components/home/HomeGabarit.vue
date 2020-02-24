@@ -31,9 +31,8 @@
     @import '~@ulaval/modul-components/dist/styles/commons';
 
     .home {
-        &__corps {
-            width: 50%;
-        }
+        padding-left: 20rem;
+        padding-right: 20rem;
 
         &__footer {
             align-self: flex-start;
