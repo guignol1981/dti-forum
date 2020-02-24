@@ -23,6 +23,8 @@ const FilterPlugin: PluginObject<void> = {
                 return Vue.prototype.$i18n.translate(value, params, nb);
             }
         );
+
+        Vue.filter('capitalize', (value: string) => value.toUpperCase());
     }
 };
 

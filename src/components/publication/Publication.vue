@@ -22,12 +22,13 @@
                         skin="light"
                         @click="onDownvoteClicked()"
                     ></m-icon-button>
-                    {{ publication.downvoteCount }}
+                    -{{ publication.downvoteCount }}
                 </div>
                 <div>
-                    <m-link :url="publicationDetailsLocation">détails</m-link>
+                    <m-link :url="publicationDetailsLocation">Détails</m-link>
                     <m-icon-button
                         @click="emitSupprimee(publication.id)"
+                        iconName="m-svg__delete"
                         buttonSize="32px"
                         iconSize="20px"
                         skin="light"
@@ -63,7 +64,7 @@
         public onUpvoteClicked(): void {
             this.emitModifiee(
                 Object.assign(this.publication, {
-                    upvoteCount: ++this.publication.upvoteCount
+                    upvoteCount: ++this.publication.upvoteCount!
                 })
             );
         }
@@ -71,7 +72,7 @@
         public onDownvoteClicked(): void {
             this.emitModifiee(
                 Object.assign(this.publication, {
-                    downvoteCount: ++this.publication.downvoteCount
+                    downvoteCount: ++this.publication.downvoteCount!
                 })
             );
         }
@@ -82,7 +83,9 @@
     @import '~@ulaval/modul-components/dist/styles/commons';
 
     .publication {
-        margin-top: $m-spacing--m;
+        + .publication {
+            margin-top: $m-spacing--l;
+        }
 
         &__header {
             display: flex;

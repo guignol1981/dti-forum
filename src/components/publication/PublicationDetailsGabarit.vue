@@ -1,7 +1,8 @@
 <template>
     <div>
-        <slot name="publication"></slot>
-        <slot name="publicationReponses"></slot>
+        <slot name="header"></slot>
+        <slot name="body"></slot>
+        <slot name="footer"></slot>
     </div>
 </template>
 

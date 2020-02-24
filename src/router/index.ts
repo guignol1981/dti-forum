@@ -1,19 +1,32 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import HomePage from '../pages/HomePage.vue';
+import PagePublications from '../pages/PagePublications.vue';
 
 Vue.use(VueRouter);
 
 export enum NomRoutes {
-    HOME_PAGE = 'Home',
-    PUBLICATION = 'Publication'
+    PUBLICATIONS = 'Publications',
+    PUBLICATION = 'Publication',
+    ABOUT = 'About',
+    PROFILE = 'Profile'
 }
 
 const routes = [
     {
         path: '/',
-        name: NomRoutes.HOME_PAGE,
-        component: HomePage
+        name: NomRoutes.PUBLICATIONS,
+        component: PagePublications
+    },
+    {
+        path: '/profile',
+        name: NomRoutes.PROFILE,
+        component: PagePublications
+    },
+    {
+        path: '/about',
+        name: NomRoutes.ABOUT,
+        component: PagePublications
     },
     {
         path: '/publication/:id',

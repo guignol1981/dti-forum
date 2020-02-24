@@ -1,28 +1,54 @@
 <template>
-    <div class="entete">
-        <div class="entete__menu">
-            <m-accordion-transition>
-                <m-navbar>
-                    <m-navbar-item :value="1" label="home"
-                        >Publication</m-navbar-item
-                    >
-                    <m-navbar-item :value="2" label="profile"> </m-navbar-item>
-                    <m-navbar-item :value="3" label="About"> </m-navbar-item>
-                </m-navbar>
-            </m-accordion-transition>
-        </div>
-    </div>
+    <m-accordion-transition class="entete">
+        <m-navbar :max-width="'1000px'" :selected="selected">
+            <m-navbar-item
+                v-for="(location, index) in locations"
+                :key="index"
+                :value="index"
+                :label="location.name"
+                :url="location"
+                @click="onNavbarItemClicked(location.name)"
+            ></m-navbar-item>
+        </m-navbar>
+    </m-accordion-transition>
 </template>
 
 <script lang="ts">
-    import Vue from 'vue';
-    export default class EnteteVue extends Vue {}
+    import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
+    import { NomRoutes } from '../../router';
+    import { Location } from 'vue-router';
+
+    @Component
+    export default class EnteteVue extends Vue {
+        public selected: number = 0;
+        public locations: Location[] = [
+            {
+                name: NomRoutes.PUBLICATIONS
+            },
+            {
+                name: NomRoutes.PROFILE
+            },
+            {
+                name: NomRoutes.ABOUT
+            }
+        ];
+
+        protected created(): void {
+            this.selected = this.locations
+                .map(l => l.name)
+                .indexOf(this.$route.name);
+        }
+
+        public onNavbarItemClicked(nomRoute: string): void {
+            this.selected = this.locations.map(l => l.name).indexOf(nomRoute);
+        }
+    }
 </script>
 
 <style lang="scss" scoped>
+    @import '~@ulaval/modul-components/dist/styles/commons';
+
     .entete {
-        &__menu {
-            background-color: greenyellow;
-        }
+        padding: 0 $m-spacing;
     }
 </style>

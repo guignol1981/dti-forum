@@ -15,7 +15,11 @@ export class PublicationServiceMock implements RestService<Publication> {
 
     public creer(ressource: Publication): Promise<Publication> {
         this.publications.push(
-            Object.assign(ressource, { id: this.publications.length })
+            Object.assign(ressource, {
+                id: this.publications.length,
+                upvoteCount: 0,
+                downvoteCount: 0
+            })
         );
         return Promise.resolve(ressource);
     }
