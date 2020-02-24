@@ -19,6 +19,13 @@ export function modifierPublication(
     );
 }
 
+export function ajouterPublication(
+    state: PublicationState,
+    publication: Publication
+): void {
+    state.publications.push(publication);
+}
+
 export function supprimerPublication(
     state: PublicationState,
     id: string

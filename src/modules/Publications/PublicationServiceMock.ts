@@ -13,6 +13,13 @@ export class PublicationServiceMock implements RestService<Publication> {
         return Promise.resolve(this.publications.find(p => p.id === id)!);
     }
 
+    public creer(ressource: Publication): Promise<Publication> {
+        this.publications.push(
+            Object.assign(ressource, { id: this.publications.length })
+        );
+        return Promise.resolve(ressource);
+    }
+
     public modifier(ressource: Publication): Promise<Publication> {
         return Promise.resolve(ressource);
     }

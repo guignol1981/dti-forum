@@ -16,6 +16,11 @@ export class PublicationReponseServiceMock
         return Promise.resolve(this.publicationReponses[0]);
     }
 
+    public creer(ressource: PublicationReponse): Promise<PublicationReponse> {
+        this.publicationReponses.push(ressource);
+        return Promise.resolve(ressource);
+    }
+
     public modifier(
         ressource: PublicationReponse
     ): Promise<PublicationReponse> {

@@ -24,6 +24,16 @@ export class PublicationService implements RestService<Publication> {
             .then(response => response.data);
     }
 
+    public creer(ressource: Publication): Promise<Publication> {
+        return this.httpService
+            .execute<Publication>({
+                method: 'post',
+                rawUrl: '/publications',
+                data: ressource
+            })
+            .then(response => response.data);
+    }
+
     public modifier(publication: Publication): Promise<Publication> {
         return this.httpService
             .execute<Publication>({

@@ -1,4 +1,4 @@
-import { Module, ActionContext } from 'vuex';
+import { Module, ActionContext, Action } from 'vuex';
 import { AppState } from '@/store/factory';
 import PublicationState from './PublicationState';
 import { Publications, Publication } from './PublicationDomaine';
@@ -6,7 +6,8 @@ import {
     modifierPublications,
     modifierPublication,
     supprimerPublication,
-    modifierPublicationConsultation
+    modifierPublicationConsultation,
+    ajouterPublication
 } from './PublicationMutations';
 import {
     GETTER_PUBLICATIONS,
@@ -18,7 +19,9 @@ import {
     ACTION_SUPPRIMER_PUBLICATION,
     ACTION_CONSULTER_PUBLICATION,
     MUTATION_PUBLICATION_CONSULTATION,
-    GETTER_PUBLICATION_CONSULTATION
+    GETTER_PUBLICATION_CONSULTATION,
+    ACTION_AJOUTER_PUBLICATION,
+    MUTATION_AJOUTER_PUBLICATION
 } from './PublicationModuleDefinition';
 
 export function PublicationModuleFactory(
@@ -42,6 +45,10 @@ export function PublicationModuleFactory(
                 state: PublicationState,
                 publication: Publication
             ): void => modifierPublication(state, publication),
+            [MUTATION_AJOUTER_PUBLICATION]: (
+                state: PublicationState,
+                publication: Publication
+            ) => ajouterPublication(state, publication),
             [MUTATION_SUPPRIMER_PUBLICATION]: (
                 state: PublicationState,
                 id: string
@@ -83,6 +90,19 @@ export function PublicationModuleFactory(
                     .then((publication: Publication) =>
                         context.commit(
                             MUTATION_MODIFIER_PUBLICATION,
+                            publication
+                        )
+                    );
+            },
+            [ACTION_AJOUTER_PUBLICATION]: (
+                context: ActionContext<PublicationState, AppState>,
+                publication: Publication
+            ): void => {
+                context.state.restService
+                    .creer(publication)
+                    .then((publication: Publication) =>
+                        context.commit(
+                            MUTATION_AJOUTER_PUBLICATION,
                             publication
                         )
                     );

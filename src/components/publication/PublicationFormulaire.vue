@@ -1,7 +1,7 @@
 <template>
     <m-overlay
         id="publication-formulaire"
-        :open.sync="ouvert"
+        :open.sync="ouvertInterne"
         @portalAfterClose="onAfterClose()"
     >
         <template slot="header">
@@ -9,7 +9,11 @@
                 {{ 'publication:formulaire-titre' | translate }}
             </h2>
         </template>
-        <m-form :form-group="formGroup" @submit="onSubmit($event)">
+        <m-form
+            :form-group="formGroup"
+            @submit="onSubmit($event)"
+            ref="publication-formulaire"
+        >
             <m-textfield
                 v-model="titreControl.value"
                 v-m-control="titreControl"
@@ -26,9 +30,12 @@
             ></m-textfield>
         </m-form>
         <template slot="footer">
-            <m-button type="submit">Soumettre</m-button>
-            <m-button class="m-u--margin-left" type="reset" skin="secondary"
-                >Réinitialiser</m-button
+            <m-button @click="onSubmitClicked()">Soumettre</m-button>
+            <m-button
+                class="m-u--margin-left"
+                skin="secondary"
+                @click="onAnnulerClicked()"
+                >Annuler</m-button
             >
         </template>
     </m-overlay>
@@ -36,8 +43,9 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import { Emit, Component, Prop } from 'vue-property-decorator';
+    import { Emit, Component, Prop, Watch } from 'vue-property-decorator';
     import { Publication } from '../../modules/Publications/PublicationDomaine';
+    import { MForm } from '@ulaval/modul-components/dist/components/form/form';
     import {
         FormGroup,
         FormControl,
@@ -47,10 +55,21 @@
 
     @Component
     export default class PublicationFormulaireVue extends Vue {
-        public ouvert: boolean = true;
+        @Prop({ default: false })
+        public ouvert!: boolean;
 
-        @Emit('publication-cree')
+        @Emit('publicationCree')
         private emitPublicationCree(publication: Publication): void {}
+
+        @Emit('ferme')
+        public emitFerme(): void {}
+
+        @Watch('ouvert', { immediate: true })
+        public onOuvertChangement(): void {
+            this.ouvertInterne = this.ouvert;
+        }
+
+        public ouvertInterne: boolean = false;
 
         public formGroup: FormGroup = new FormGroup({
             titre: new FormControl<string>([RequiredValidator()]),
@@ -66,11 +85,22 @@
         }
 
         public onSubmit(): void {
-            console.log(this.formGroup.value);
+            this.emitPublicationCree(this.formGroup.value);
+            this.close();
         }
 
-        public onAfterClose(): void {
-            this.$destroy();
+        public onSubmitClicked(): void {
+            (this.$refs['publication-formulaire'] as MForm).submit();
+        }
+
+        public onAnnulerClicked(): void {
+            this.close();
+        }
+
+        private close(): void {
+            (this.$refs['publication-formulaire'] as MForm).reset();
+            this.ouvertInterne = false;
+            this.emitFerme();
         }
     }
 </script>

@@ -1,11 +1,13 @@
 <template>
     <div class="home">
-        <PublicationFormulaireVue></PublicationFormulaireVue>
-        <div class="home__titre">
-            <slot name="titre"></slot>
+        <div class="home__header">
+            <slot name="header"></slot>
         </div>
         <div class="home__corps">
             <slot name="corps"></slot>
+        </div>
+        <div class="home__footer m-u--margin-top--m">
+            <slot name="footer"></slot>
         </div>
     </div>
 </template>
@@ -29,16 +31,12 @@
     @import '~@ulaval/modul-components/dist/styles/commons';
 
     .home {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-
-        &__titre {
-            font-size: $m-font-size--h2;
-        }
-
         &__corps {
             width: 50%;
+        }
+
+        &__footer {
+            align-self: flex-start;
         }
     }
 </style>
