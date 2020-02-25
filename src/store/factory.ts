@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import Vuex, { Store, ActionContext } from 'vuex';
 import PublicationModuleFactory from '@/modules/Publications/PublicationModule';
 import PublicationReponseModuleFactory from '@/modules/PublicationReponse/PublicationReponseModule';
 

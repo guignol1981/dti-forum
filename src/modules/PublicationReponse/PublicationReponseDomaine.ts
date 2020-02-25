@@ -1,7 +1,7 @@
 export interface PublicationReponse {
     id: string;
     publicationId: string;
-    body: string;
+    corps: string;
 }
 
 export type PublicationReponses = PublicationReponse[];

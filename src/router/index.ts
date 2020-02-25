@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import HomePage from '../pages/HomePage.vue';
 import PagePublications from '../pages/PagePublications.vue';
 
 Vue.use(VueRouter);
@@ -33,7 +32,7 @@ const routes = [
         name: NomRoutes.PUBLICATION,
         component: () =>
             import(
-                /* webpackChunkName: "publication" */ '../pages/PublicationDetailsPage.vue'
+                /* webpackChunkName: "publication" */ '../pages/PagePublication.vue'
             )
     }
 ];

@@ -34,8 +34,9 @@
 
     .gabarit-principal {
         &-logo {
+            width: 35px;
+            height: 35px;
             margin-left: $m-spacing;
-            width: 2rem;
         }
 
         &__header {

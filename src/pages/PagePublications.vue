@@ -2,14 +2,14 @@
     <GabaritPublications>
         <div class="page-publications__body">
             <div class="page-publications-actions">
-                <m-add @click="onAjouterPublicationClicked()"
-                    >Ajouter publication</m-add
-                >
                 <m-searchfield
                     placeholder="Rechercher..."
                     class="page-publications-actions__recherche"
                     @search="onSearch($event)"
                 ></m-searchfield>
+                <m-add @click="onAjouterPublicationClicked()"
+                    >Ajouter publication</m-add
+                >
             </div>
             <div>
                 <PublicationVue
@@ -141,7 +141,8 @@
 
         &-actions {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
             padding-bottom: $m-spacing--l;
 
             &__recherche {
