@@ -1,6 +1,6 @@
 export interface PublicationReponse {
-    id: string;
-    publicationId: string;
+    id?: string;
+    publicationId?: string;
     corps: string;
 }
 

@@ -1,25 +1,19 @@
 <template>
     <GabaritPublication>
-        <div>
+        <template slot="header">
             <m-link>Retour</m-link>
             <VuePublicationDetails
-                slot="header"
                 v-if="!!publication"
                 :publication="publication"
             ></VuePublicationDetails>
-        </div>
+        </template>
+        <template slot="sub">
+            <VuePublicationReponseFormulaire></VuePublicationReponseFormulaire
+        ></template>
         <VuePublicationReponses
             :publicationReponses="publicationReponses"
         ></VuePublicationReponses>
-        <template slot="footer">
-            <!-- <m-pagination
-                class="page-publications__pagination"
-                v-model="indexPagination"
-                :items-per-page="publicationsParPages"
-                :items-total="publications.length"
-                @change="scrollToTop()"
-            ></m-pagination> -->
-        </template>
+        <template slot="footer"> </template>
     </GabaritPublication>
 </template>
 
@@ -42,6 +36,7 @@
     } from '../modules/PublicationReponse/PublicationReponseModuleDefinitions';
     import { PublicationReponses } from '../modules/PublicationReponse/PublicationReponseDomaine';
     import VuePublicationReponses from '../components/VuePublicationReponses.vue';
+    import VuePublicationReponseFormulaire from '../components/VuePublicationReponseFormulaire.vue';
 
     const publicationModule = namespace('publication');
     const publicationReponseModule = namespace('publicationReponse');
@@ -51,7 +46,8 @@
             GabaritPublication,
             PublicationVue,
             VuePublicationDetails,
-            VuePublicationReponses
+            VuePublicationReponses,
+            VuePublicationReponseFormulaire
         }
     })
     export default class PagePublication extends Vue {
@@ -72,4 +68,6 @@
     }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+    @import '~@ulaval/modul-components/dist/styles/commons';
+</style>

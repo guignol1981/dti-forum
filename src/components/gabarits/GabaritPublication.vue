@@ -3,6 +3,9 @@
         <div class="gabarit-publication__header">
             <slot name="header"></slot>
         </div>
+        <div class="gabarit-publication__sub">
+            <slot name="sub"></slot>
+        </div>
         <div class="gabarit-publication__main">
             <slot></slot>
         </div>
@@ -28,10 +31,16 @@
         padding: $m-spacing--xxl $m-spacing;
         width: 100%;
         max-width: $m-max-width;
+
         &__header {
         }
 
         &__main {
+            margin-top: $m-spacing--m;
+        }
+
+        &__sub {
+            margin-top: $m-spacing--m;
         }
 
         &__footer {

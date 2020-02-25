@@ -156,6 +156,7 @@
             left: 0;
             right: 0;
             background-color: white;
+            z-index: 100;
 
             &::before {
                 display: block;

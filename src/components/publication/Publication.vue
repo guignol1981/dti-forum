@@ -1,8 +1,19 @@
 <template>
     <div class="publication">
-        <m-panel :highlighted="true" skin="light" :padding="false">
+        <m-panel
+            :highlighted="true"
+            skin="light"
+            :padding="false"
+            :shadow="true"
+        >
             <div slot="header" class="publication__header">
-                {{ publication.titre | truncate(30) }}
+                <img
+                    class="publication-photo"
+                    src="https://scontent.fyhu1-1.fna.fbcdn.net/v/t1.0-1/p160x160/81753965_10162849836970002_8979231814983876608_n.jpg?_nc_cat=104&_nc_sid=dbb9e7&_nc_ohc=RLIjMw-6k6MAX__AL46&_nc_ht=scontent.fyhu1-1.fna&_nc_tp=6&oh=5318bff02e71a49e8757a2da9f3d3f48&oe=5EBCCEC8"
+                />
+                <span>
+                    {{ publication.titre | truncate(30) }}
+                </span>
             </div>
             <div class="publication__body">{{ publication.corps }}</div>
             <div slot="footer" class="publication__footer">
@@ -83,6 +94,13 @@
     @import '~@ulaval/modul-components/dist/styles/commons';
 
     .publication {
+        position: relative;
+
+        &-photo {
+            width: 50px;
+            border-radius: 100%;
+        }
+
         + .publication {
             margin-top: $m-spacing--l;
         }
@@ -93,6 +111,10 @@
             font-weight: bold;
             font-size: $m-font-size--h3;
             padding: 1rem;
+
+            & > span {
+                margin-left: $m-spacing--l;
+            }
         }
 
         &__body {
