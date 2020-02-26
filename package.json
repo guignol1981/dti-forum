@@ -3,7 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "concurrently --kill-others \"vue-cli-service serve\" \"nodemon server.js\"",
+        "dev": "concurrently --kill-others \"vue-cli-service build --watch\" \"nodemon server.js\"",
         "start": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "test:unit": "vue-cli-service test:unit",
