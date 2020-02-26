@@ -1,10 +1,6 @@
 <template>
     <div class="m-u--app-body">
-        <GabaritPrincipal>
-            <template slot="header">
-                <VueEntete></VueEntete>
-            </template>
-        </GabaritPrincipal>
+        <PagePrincipal></PagePrincipal>
     </div>
 </template>
 
@@ -12,11 +8,11 @@
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import VueEntete from './vues/components/VueEntete.vue';
-    import GabaritPrincipal from './vues/gabarits/GabaritPrincipal.vue';
+    import PagePrincipal from './vues/pages/PagePrincipal.vue';
 
     @Component({
         components: {
-            GabaritPrincipal,
+            PagePrincipal,
             VueEntete
         }
     })

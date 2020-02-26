@@ -5,13 +5,28 @@
     "templatePath": "src/cli-templates",
     "entityConfigs": [
         {
-            "name": "vue",
-            "path": "/src/components",
+            "name": "components",
+            "path": "/src/vues/components",
             "prefix": "dti",
             "fileConfigs": [
                 {
-                    "name": "*.vue",
-                    "template": "vue-template.txt"
+                    "name": "Vue*.vue",
+                    "template": "component-template.txt"
+                }
+            ]
+        },
+        {
+            "name": "gabarit",
+            "path": "/src/vues/gabarits",
+            "prefix": "dti",
+            "fileConfigs": [
+                {
+                    "name": "Gabarit*.vue",
+                    "template": "gabarit-template.txt"
+                },
+                {
+                    "name": "Page*.vue",
+                    "template": "page-template.txt"
                 }
             ]
         },

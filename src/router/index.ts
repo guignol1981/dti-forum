@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import PagePublications from '../vues/pages/PagePublications.vue';
+import PageLogin from '../vues/pages/PageLogin.vue';
 
 Vue.use(VueRouter);
 
@@ -8,12 +9,18 @@ export enum NomRoutes {
     PUBLICATIONS = 'Publications',
     PUBLICATION = 'Publication',
     ABOUT = 'About',
-    PROFILE = 'Profile'
+    PROFILE = 'Profile',
+    LOGIN = 'login'
 }
 
 const routes = [
     {
         path: '/',
+        name: NomRoutes.LOGIN,
+        component: PageLogin
+    },
+    {
+        path: '/publications',
         name: NomRoutes.PUBLICATIONS,
         component: PagePublications
     },
