@@ -8,7 +8,9 @@
                     class="page-publications-actions__recherche"
                     @search="onSearch($event)"
                 ></m-searchfield>
-                <m-add @click="onAjouterPublicationClicked()">Ajouter publication</m-add>
+                <m-add @click="onAjouterPublicationClicked()"
+                    >Ajouter publication</m-add
+                >
             </div>
             <div>
                 <VuePublication
@@ -39,140 +41,143 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import { namespace } from 'vuex-class';
-import {
-    GETTER_PUBLICATIONS,
-    ACTION_CHERCHER_PUBLICATIONS,
-    ACTION_AJOUTER_PUBLICATION,
-    ACTION_SUPPRIMER_PUBLICATION,
-    ACTION_MODIFIER_PUBLICATION
-} from '../../modules/Publications/PublicationModuleDefinition';
-import {
-    Publication,
-    Publications
-} from '../../modules/Publications/PublicationDomaine';
-import { ScrollToDuration } from '@ulaval/modul-components/dist/utils/scroll-to/scroll-to';
-import VuePublicationFormulaire from '../components/VuePublicationFormulaire.vue';
-import GabaritPublications from '../gabarits/GabaritPublications.vue';
-import VuePublication from '../components/VuePublication.vue';
+    import Vue from 'vue';
+    import Component from 'vue-class-component';
+    import { namespace } from 'vuex-class';
+    import {
+        GETTER_PUBLICATIONS,
+        ACTION_CHERCHER_PUBLICATIONS,
+        ACTION_AJOUTER_PUBLICATION,
+        ACTION_SUPPRIMER_PUBLICATION,
+        ACTION_MODIFIER_PUBLICATION
+    } from '../../modules/Publications/PublicationModuleDefinition';
+    import {
+        Publication,
+        Publications
+    } from '../../modules/Publications/PublicationDomaine';
+    import { ScrollToDuration } from '@ulaval/modul-components/dist/utils/scroll-to/scroll-to';
+    import VuePublicationFormulaire from '../components/VuePublicationFormulaire.vue';
+    import GabaritPublications from '../gabarits/GabaritPublications.vue';
+    import VuePublication from '../components/VuePublication.vue';
 
-const publicationModule = namespace('publication');
+    const publicationModule = namespace('publication');
 
-@Component({
-    components: {
-        GabaritPublications,
-        VuePublication,
-        VuePublicationFormulaire
+    @Component({
+        components: {
+            GabaritPublications,
+            VuePublication,
+            VuePublicationFormulaire
+        }
+    })
+    export default class PagePublication extends Vue {
+        @publicationModule.Getter(GETTER_PUBLICATIONS)
+        public publications!: Publications;
+
+        @publicationModule.Action(ACTION_CHERCHER_PUBLICATIONS)
+        public chercherPublications!: () => void;
+        @publicationModule.Action(ACTION_MODIFIER_PUBLICATION)
+        public modifierPublication!: (publication: Publication) => void;
+        @publicationModule.Action(ACTION_AJOUTER_PUBLICATION)
+        public ajouterPublication!: (publication: Publication) => void;
+        @publicationModule.Action(ACTION_SUPPRIMER_PUBLICATION)
+        public supprimerPublication!: (id: string) => void;
+
+        public indexPagination: number = 1;
+        public publicationsParPages: number = 20;
+        public formulairePublicationOuvert: boolean = false;
+        public valeurRecherche: string = '';
+
+        protected created(): void {
+            this.chercherPublications();
+        }
+
+        public get publicationsFiltrees(): Publications {
+            return this.publications.filter(p =>
+                p.titre.includes(this.valeurRecherche)
+            );
+        }
+
+        public get publicationsPaginees(): Publications {
+            return this.publicationsFiltrees.slice(
+                (this.indexPagination - 1) * this.publicationsParPages,
+                (this.indexPagination - 1) * this.publicationsParPages +
+                    this.publicationsParPages
+            );
+        }
+
+        public onAjouterPublicationClicked(): void {
+            this.formulairePublicationOuvert = true;
+        }
+
+        public onPublicationModifee(publication: Publication): void {
+            this.modifierPublication(publication);
+        }
+
+        public onPublicationCree(publication: Publication): void {
+            this.ajouterPublication(publication);
+        }
+
+        public onPublicationSupprimee(id: string): void {
+            this.supprimerPublication(id);
+        }
+
+        public onFormulaireFerme(): void {
+            this.formulairePublicationOuvert = false;
+        }
+
+        public onSearch(recherche: string): void {}
+
+        public scrollToTop(): void {
+            const offsetToScroll: number =
+                (this.$el as HTMLElement).offsetTop - 1000;
+            this.$scrollTo.goTo(
+                document.body,
+                offsetToScroll,
+                ScrollToDuration.Regular
+            );
+        }
     }
-})
-export default class PagePublication extends Vue {
-    @publicationModule.Getter(GETTER_PUBLICATIONS)
-    public publications!: Publications;
-
-    @publicationModule.Action(ACTION_CHERCHER_PUBLICATIONS)
-    public chercherPublications!: () => void;
-    @publicationModule.Action(ACTION_MODIFIER_PUBLICATION)
-    public modifierPublication!: (publication: Publication) => void;
-    @publicationModule.Action(ACTION_AJOUTER_PUBLICATION)
-    public ajouterPublication!: (publication: Publication) => void;
-    @publicationModule.Action(ACTION_SUPPRIMER_PUBLICATION)
-    public supprimerPublication!: (id: string) => void;
-
-    public indexPagination: number = 1;
-    public publicationsParPages: number = 20;
-    public formulairePublicationOuvert: boolean = false;
-    public valeurRecherche: string = '';
-
-    protected created(): void {
-        this.chercherPublications();
-    }
-
-    public get publicationsFiltrees(): Publications {
-        return this.publications.filter(p =>
-            p.titre.includes(this.valeurRecherche)
-        );
-    }
-
-    public get publicationsPaginees(): Publications {
-        return this.publicationsFiltrees.slice(
-            (this.indexPagination - 1) * this.publicationsParPages,
-            (this.indexPagination - 1) * this.publicationsParPages +
-                this.publicationsParPages
-        );
-    }
-
-    public onAjouterPublicationClicked(): void {
-        this.formulairePublicationOuvert = true;
-    }
-
-    public onPublicationModifee(publication: Publication): void {
-        this.modifierPublication(publication);
-    }
-
-    public onPublicationCree(publication: Publication): void {
-        this.ajouterPublication(publication);
-    }
-
-    public onPublicationSupprimee(id: string): void {
-        this.supprimerPublication(id);
-    }
-
-    public onFormulaireFerme(): void {
-        this.formulairePublicationOuvert = false;
-    }
-
-    public onSearch(recherche: string): void {}
-
-    public scrollToTop(): void {
-        const offsetToScroll: number =
-            (this.$el as HTMLElement).offsetTop - 1000;
-        this.$scrollTo.goTo(
-            document.body,
-            offsetToScroll,
-            ScrollToDuration.Regular
-        );
-    }
-}
 </script>
 
 <style scoped lang="scss">
-@import '~@ulaval/modul-components/dist/styles/commons';
+    @import '~@ulaval/modul-components/dist/styles/commons';
 
-.page-publications {
-    &__body {
-        padding-bottom: $m-spacing--xxxl;
-    }
+    .page-publications {
+        &__body {
+            padding-bottom: $m-spacing--xxxl;
+        }
 
-    &-actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-bottom: $m-spacing--l;
+        &-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: $m-spacing--l;
 
-        &__recherche {
-            margin-top: $m-spacing--l;
+            &__recherche {
+                margin-top: $m-spacing--l;
+            }
+        }
+
+        &__pagination {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            z-index: 0;
+
+            &::before {
+                display: block;
+                content: '';
+                position: absolute;
+                top: -$m-spacing--xxxl;
+                background-image: linear-gradient(
+                    rgba(white, 0),
+                    $m-color--white
+                );
+                height: $m-spacing--xxxl;
+                width: 100%;
+            }
         }
     }
-
-    &__pagination {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: white;
-        z-index: 0;
-
-        &::before {
-            display: block;
-            content: '';
-            position: absolute;
-            top: -$m-spacing--xxxl;
-            background-image: linear-gradient(rgba(white, 0), $m-color--white);
-            height: $m-spacing--xxxl;
-            width: 100%;
-        }
-    }
-}
 </style>

@@ -16,35 +16,35 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+    import Vue from 'vue';
+    import Component from 'vue-class-component';
 
-@Component
-export default class GabaritPublication extends Vue {}
+    @Component
+    export default class GabaritPublication extends Vue {}
 </script>
 
 <style lang="scss" scoped>
-@import '~@ulaval/modul-components/dist/styles/commons';
+    @import '~@ulaval/modul-components/dist/styles/commons';
 
-.gabarit-publication {
-    margin: 0 auto;
-    padding: $m-spacing--xxl $m-spacing;
-    width: 100%;
-    max-width: $m-max-width;
+    .gabarit-publication {
+        margin: 0 auto;
+        padding: $m-spacing--xxl $m-spacing;
+        width: 100%;
+        max-width: $m-max-width;
 
-    &__header {
+        &__header {
+        }
+
+        &__main {
+            margin-top: $m-spacing--m;
+        }
+
+        &__sub {
+            margin-top: $m-spacing--m;
+        }
+
+        &__footer {
+            background-color: greenyellow;
+        }
     }
-
-    &__main {
-        margin-top: $m-spacing--m;
-    }
-
-    &__sub {
-        margin-top: $m-spacing--m;
-    }
-
-    &__footer {
-        background-color: greenyellow;
-    }
-}
 </style>
