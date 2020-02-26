@@ -19,20 +19,23 @@
                 v-model="titreControl.value"
                 v-m-control="titreControl"
                 label="Titre"
+                tag-style="h3"
+                max-width="100%"
                 :error="titreControl.hasError()"
                 :error-message="titreControl.errorMessage"
             ></m-textfield>
             <m-textarea
-                class="publication-formulaire__textarea"
+                class="publication-formulaire__textarea m-u--margin-top--m"
                 v-model="corpsControl.value"
                 v-m-control="corpsControl"
-                label="Corps"
+                label="Texte de la publication"
+                max-width="100%"
                 :error="corpsControl.hasError()"
                 :error-message="corpsControl.errorMessage"
             ></m-textarea>
         </m-form>
         <template slot="footer">
-            <m-button @click="onSubmitClicked()">Soumettre</m-button>
+            <m-button @click="onSubmitClicked()">Publier</m-button>
             <m-button
                 class="m-u--margin-left"
                 skin="secondary"

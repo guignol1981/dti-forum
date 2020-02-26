@@ -1,21 +1,14 @@
 <template>
     <div class="m-u--app-body">
-        <PagePrincipal></PagePrincipal>
+        <router-view></router-view>
     </div>
 </template>
 
 <script lang="ts">
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import VueEntete from './vues/components/VueEntete.vue';
-    import PagePrincipal from './vues/pages/PagePrincipal.vue';
 
-    @Component({
-        components: {
-            PagePrincipal,
-            VueEntete
-        }
-    })
+    @Component
     export default class App extends Vue {}
 </script>
 
@@ -23,4 +16,16 @@
     // modul sass overrides here.
     $m-font-path: '~@ulaval/modul-components/dist/assets/fonts/'; //this is required.
     @import '~@ulaval/modul-components/dist/styles/main.scss';
+
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        min-width: 320px;
+    }
+
+    .m-u--app-body {
+        height: 100%;
+    }
 </style>

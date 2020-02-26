@@ -1,31 +1,35 @@
 <template>
     <m-form :formGroup="formGroup" @submit="onSubmit()">
         <m-textfield
-            label="Email"
             v-model="emailControl.value"
             v-m-control="emailControl"
+            label="Email"
+            type="email"
+            max-width="100%"
             :error="emailControl.hasError()"
             :error-message="emailControl.errorMessage"
         ></m-textfield>
 
-        <div>
-            <m-textfield
-                label="Password"
-                type="password"
-                v-model="passwordControl.value"
-                v-m-control="passwordControl"
-                :error="passwordControl.hasError()"
-                :error-message="passwordControl.errorMessage"
-            ></m-textfield>
-            <m-textfield
-                label="Confirm password"
-                type="password"
-                v-model="confirmPasswordControl.value"
-                v-m-control="confirmPasswordControl"
-                :error="confirmPasswordControl.hasError()"
-                :error-message="confirmPasswordControl.errorMessage"
-            ></m-textfield>
-        </div>
+        <m-textfield
+            v-model="passwordControl.value"
+            v-m-control="passwordControl"
+            class="m-u--margin-top"
+            label="Password"
+            type="password"
+            max-width="100%"
+            :error="passwordControl.hasError()"
+            :error-message="passwordControl.errorMessage"
+        ></m-textfield>
+        <m-textfield
+            v-model="confirmPasswordControl.value"
+            v-m-control="confirmPasswordControl"
+            class="m-u--margin-top"
+            label="Confirm password"
+            type="password"
+            max-width="100%"
+            :error="confirmPasswordControl.hasError()"
+            :error-message="confirmPasswordControl.errorMessage"
+        ></m-textfield>
 
         <m-validation-message
             v-if="formGroup.hasError()"
@@ -34,20 +38,9 @@
             :error-message="formGroup.errorMessage"
         ></m-validation-message>
 
-        <div class="sign-in-formulaire__actions">
-            <m-button
-                type="submit"
-                class="sign-in-formulaire__actions__action"
-                skin="primary"
-                >Sign in</m-button
-            >
-            <m-button
-                type="reset"
-                class="sign-in-formulaire__actions__action"
-                skin="secondary"
-                >Reset</m-button
-            >
-        </div>
+        <m-button class="m-u--margin-top--l" type="submit" skin="primary"
+            >Register</m-button
+        >
     </m-form>
 </template>
 
@@ -114,18 +107,4 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    @import '~@ulaval/modul-components/dist/styles/commons';
-
-    .sign-in-formulaire {
-        &__actions {
-            margin-top: $m-spacing--m;
-
-            &__action {
-                + .sign-in-formulaire__actions__action {
-                    margin-left: $m-spacing--m;
-                }
-            }
-        }
-    }
-</style>
+<style lang="scss" scoped></style>

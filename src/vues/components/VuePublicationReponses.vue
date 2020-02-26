@@ -32,7 +32,7 @@
     .publication-reponses {
         &__reponse {
             + .publication-reponses__reponse {
-                margin-top: $m-spacing--m;
+                margin-top: $m-spacing--l;
             }
         }
     }

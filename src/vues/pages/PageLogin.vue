@@ -1,27 +1,27 @@
 <template>
     <GabaritLogin>
-        <div slot="header">
-            <m-navbar :selected="mode" skin="tab-underline">
-                <m-navbar-item
-                    :value="pageLoginModes.SIGN_IN"
-                    @click="mode = pageLoginModes.SIGN_IN"
-                    label="Sign in"
-                ></m-navbar-item>
-                <m-navbar-item
-                    :value="pageLoginModes.REGISTER"
-                    @click="mode = pageLoginModes.REGISTER"
-                    label="Register"
-                ></m-navbar-item>
-            </m-navbar>
-        </div>
-        <VueSignInFormulaire
-            v-if="mode === pageLoginModes.SIGN_IN"
-            @submit="onSubmit($event)"
-        ></VueSignInFormulaire>
-        <VueRegisterFormulaire
-            v-else
-            @submit="onSubmit($event)"
-        ></VueRegisterFormulaire>
+        <m-navbar :selected.sync="mode" skin="tab-underline">
+            <m-navbar-item
+                :value="pageLoginModes.SIGN_IN"
+                label="Sign in"
+            ></m-navbar-item>
+            <m-navbar-item
+                :value="pageLoginModes.REGISTER"
+                label="Register"
+            ></m-navbar-item>
+        </m-navbar>
+        <m-slide-transition :direction="sliddeTransitionDirection">
+            <VueSignInFormulaire
+                v-if="mode === pageLoginModes.SIGN_IN"
+                class="m-u--padding-top--m"
+                @submit="onSubmit($event)"
+            ></VueSignInFormulaire>
+            <VueRegisterFormulaire
+                v-else
+                class="m-u--padding-top--m"
+                @submit="onSubmit($event)"
+            ></VueRegisterFormulaire>
+        </m-slide-transition>
     </GabaritLogin>
 </template>
 
@@ -54,7 +54,17 @@
         public pageLoginModes = PageLoginModes;
         public mode: PageLoginModes = PageLoginModes.SIGN_IN;
 
+        protected mounted(): void {
+            this.$scrollTo.goToTop();
+        }
+
         public onSubmit(value: { email: string; password: string }): void {}
+
+        public get sliddeTransitionDirection(): string {
+            return this.mode === PageLoginModes.SIGN_IN
+                ? 'left-to-right'
+                : 'right-to-left';
+        }
     }
 </script>
 

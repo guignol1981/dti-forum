@@ -1,8 +1,7 @@
 <template>
     <GabaritPrincipal>
-        <template slot="header">
-            <VueEntete v-if="false"></VueEntete>
-        </template>
+        <VueMenu slot="menu"></VueMenu>
+        <router-view></router-view>
     </GabaritPrincipal>
 </template>
 
@@ -10,15 +9,15 @@
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import GabaritPrincipal from '../gabarits/GabaritPrincipal.vue';
-    import VueEntete from '../components/VueEntete.vue';
+    import VueMenu from '../components/VueMenu.vue';
 
     @Component({
         components: {
             GabaritPrincipal,
-            VueEntete
+            VueMenu
         }
     })
-    export default class PagePrincipal extends Vue {}
+    export default class PagePublic extends Vue {}
 </script>
 
 <style lang="scss" scoped></style>

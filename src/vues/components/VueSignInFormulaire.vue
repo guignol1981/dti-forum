@@ -4,31 +4,24 @@
             label="Email"
             v-model="emailControl.value"
             v-m-control="emailControl"
+            max-width="100%"
+            type="email"
             :error="emailControl.hasError()"
             :error-message="emailControl.errorMessage"
         ></m-textfield>
         <m-textfield
+            class="m-u--margin-top"
             label="Password"
             type="password"
             v-model="passwordControl.value"
             v-m-control="passwordControl"
+            max-width="100%"
             :error="passwordControl.hasError()"
             :error-message="passwordControl.errorMessage"
         ></m-textfield>
-        <div class="sign-in-formulaire__actions">
-            <m-button
-                type="submit"
-                class="sign-in-formulaire__actions__action"
-                skin="primary"
-                >Sign in</m-button
-            >
-            <m-button
-                type="reset"
-                class="sign-in-formulaire__actions__action"
-                skin="secondary"
-                >Reset</m-button
-            >
-        </div>
+        <m-button class="m-u--margin-top--l" type="submit" skin="primary"
+            >Sign in</m-button
+        >
     </m-form>
 </template>
 
@@ -66,18 +59,4 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    @import '~@ulaval/modul-components/dist/styles/commons';
-
-    .sign-in-formulaire {
-        &__actions {
-            margin-top: $m-spacing--m;
-
-            &__action {
-                + .sign-in-formulaire__actions__action {
-                    margin-left: $m-spacing--m;
-                }
-            }
-        }
-    }
-</style>
+<style lang="scss" scoped></style>

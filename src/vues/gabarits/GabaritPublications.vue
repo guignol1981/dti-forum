@@ -3,7 +3,7 @@
         <main class="gabarit-publications__body">
             <slot></slot>
             <m-scroll-top
-                class="gabarit-publications-scroll-top"
+                class="gabarit-publications__scroll-top"
                 position="fixed"
                 duration="long"
             ></m-scroll-top>
@@ -24,7 +24,7 @@
     @import '~@ulaval/modul-components/dist/styles/commons';
 
     .gabarit-publications {
-        &-scroll-top {
+        &__scroll-top {
             & > input {
                 z-index: 2000 !important;
             }
