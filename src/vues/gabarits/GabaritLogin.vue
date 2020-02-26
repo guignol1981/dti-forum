@@ -40,6 +40,9 @@
             justify-content: center;
             padding: $m-spacing--l $m-spacing;
             background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Pavillon_Louis-Jacques-Casault_-_Universit%C3%A9_-Laval_-_Quebec_City_-_October_2007.jpg/1280px-Pavillon_Louis-Jacques-Casault_-_Universit%C3%A9_-Laval_-_Quebec_City_-_October_2007.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
         &::before {

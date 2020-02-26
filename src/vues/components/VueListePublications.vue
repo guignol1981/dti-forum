@@ -9,7 +9,7 @@
                 @search="onSearch($event)"
             ></m-searchfield>
             <m-add @click="onAjouterPublicationClicked()">
-                <span v-if="isMqMinS">Ajouter publication</span>
+                <span v-if="isMqMinS">Créer une publication</span>
             </m-add>
         </div>
         <div class="m-u--margin-top--xl">
