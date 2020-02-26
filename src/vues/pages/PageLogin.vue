@@ -10,7 +10,7 @@
                 label="Register"
             ></m-navbar-item>
         </m-navbar>
-        <m-slide-transition :direction="sliddeTransitionDirection">
+        <m-slide-transition :direction="slideTransitionDirection">
             <VueSignInFormulaire
                 v-if="mode === pageLoginModes.SIGN_IN"
                 class="m-u--padding-top--m"
@@ -60,7 +60,7 @@
 
         public onSubmit(value: { email: string; password: string }): void {}
 
-        public get sliddeTransitionDirection(): string {
+        public get slideTransitionDirection(): string {
             return this.mode === PageLoginModes.SIGN_IN
                 ? 'left-to-right'
                 : 'right-to-left';
