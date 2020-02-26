@@ -13,21 +13,23 @@
             :form-group="formGroup"
             @submit="onSubmit($event)"
             ref="publication-formulaire"
+            class="publication-formulaire"
         >
             <m-textfield
                 v-model="titreControl.value"
                 v-m-control="titreControl"
-                :label="'# Titre'"
+                label="Titre"
                 :error="titreControl.hasError()"
                 :error-message="titreControl.errorMessage"
             ></m-textfield>
-            <m-textfield
+            <m-textarea
+                class="publication-formulaire__textarea"
                 v-model="corpsControl.value"
                 v-m-control="corpsControl"
-                :label="'# Corps'"
+                label="Corps"
                 :error="corpsControl.hasError()"
                 :error-message="corpsControl.errorMessage"
-            ></m-textfield>
+            ></m-textarea>
         </m-form>
         <template slot="footer">
             <m-button @click="onSubmitClicked()">Soumettre</m-button>
@@ -106,5 +108,10 @@
 </script>
 
 <style scoped lang="scss">
-    @import '@/styles/commun.scss';
+    @import '~@ulaval/modul-components/dist/styles/commons';
+
+    .publication-formulaire {
+        display: flex;
+        flex-direction: column;
+    }
 </style>

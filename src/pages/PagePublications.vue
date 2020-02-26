@@ -3,6 +3,7 @@
         <div class="page-publications__body">
             <div class="page-publications-actions">
                 <m-searchfield
+                    v-model="valeurRecherche"
                     placeholder="Rechercher..."
                     class="page-publications-actions__recherche"
                     @search="onSearch($event)"
@@ -32,7 +33,7 @@
                 class="page-publications__pagination"
                 v-model="indexPagination"
                 :items-per-page="publicationsParPages"
-                :items-total="publications.length"
+                :items-total="publicationsFiltrees.length"
                 @change="scrollToTop()"
             ></m-pagination>
         </template>
@@ -84,13 +85,20 @@
         public indexPagination: number = 1;
         public publicationsParPages: number = 20;
         public formulairePublicationOuvert: boolean = false;
+        public valeurRecherche: string = '';
 
         protected created(): void {
             this.chercherPublications();
         }
 
+        public get publicationsFiltrees(): Publications {
+            return this.publications.filter(p =>
+                p.titre.includes(this.valeurRecherche)
+            );
+        }
+
         public get publicationsPaginees(): Publications {
-            return this.publications.slice(
+            return this.publicationsFiltrees.slice(
                 (this.indexPagination - 1) * this.publicationsParPages,
                 (this.indexPagination - 1) * this.publicationsParPages +
                     this.publicationsParPages
@@ -156,7 +164,7 @@
             left: 0;
             right: 0;
             background-color: white;
-            z-index: 100;
+            z-index: 0;
 
             &::before {
                 display: block;

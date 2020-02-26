@@ -10,7 +10,6 @@
 
 <script lang="ts">
     import Vue from 'vue';
-    import HomePage from './pages/HomePage.vue';
     import GabaritPrincipal from './components/gabarits/GabaritPrincipal.vue';
     import Component from 'vue-class-component';
     import EnteteVue from './components/entete/Entete.vue';
