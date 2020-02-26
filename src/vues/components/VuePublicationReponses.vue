@@ -12,8 +12,8 @@
 <script lang="ts">
     import Vue from 'vue';
     import { Prop, Component } from 'vue-property-decorator';
-    import { PublicationReponses } from '../modules/PublicationReponse/PublicationReponseDomaine';
     import VuePublicationReponse from './VuePublicationReponse.vue';
+    import { PublicationReponses } from '../../modules/PublicationReponse/PublicationReponseDomaine';
 
     @Component({
         components: {

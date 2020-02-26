@@ -57,7 +57,7 @@
     import { Location } from 'vue-router';
 
     @Component
-    export default class PublicationVue extends Vue {
+    export default class VuePublication extends Vue {
         @Prop({ required: true })
         public publication!: Publication;
         @Emit('supprimee')

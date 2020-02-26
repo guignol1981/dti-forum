@@ -29,7 +29,7 @@
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import { Prop } from 'vue-property-decorator';
-    import { Publication } from '../modules/Publications/PublicationDomaine';
+    import { Publication } from '../../modules/Publications/PublicationDomaine';
 
     @Component
     export default class VuePublicationDetails extends Vue {

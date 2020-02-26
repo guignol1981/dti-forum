@@ -15,13 +15,10 @@
 </template>
 
 <script lang="ts">
-    import EnteteVue from '../entete/Entete.vue';
     import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 
     @Component({
-        components: {
-            EnteteVue
-        }
+        components: {}
     })
     export default class GabaritPrincipal extends Vue {
         @Prop({ default: 'DTI-Overflow' })

@@ -7,7 +7,7 @@ const FrenchPlugin: PluginObject<any> = {
     install(v: VueConstructor): void {
         v.prototype.$i18n.addMessages(
             FRENCH,
-            require('@/components/publication/Publication.lang.fr.json')
+            require('@/vues/langs/Publication.lang.fr.json')
         );
     }
 };

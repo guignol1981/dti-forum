@@ -15,11 +15,11 @@
 
 <script lang="ts">
     import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
-    import { NomRoutes } from '../../router';
     import { Location } from 'vue-router';
+    import { NomRoutes } from '../../router';
 
     @Component
-    export default class EnteteVue extends Vue {
+    export default class VueEntete extends Vue {
         public selected: number = 0;
         public locations: Location[] = [
             {

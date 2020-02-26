@@ -46,7 +46,6 @@
 <script lang="ts">
     import Vue from 'vue';
     import { Emit, Component, Prop, Watch } from 'vue-property-decorator';
-    import { Publication } from '../../modules/Publications/PublicationDomaine';
     import { MForm } from '@ulaval/modul-components/dist/components/form/form';
     import {
         FormGroup,
@@ -54,9 +53,10 @@
         RequiredValidator,
         AbstractControl
     } from '@ulaval/modul-components';
+    import { Publication } from '../../modules/Publications/PublicationDomaine';
 
     @Component
-    export default class PublicationFormulaireVue extends Vue {
+    export default class VuePublicationFormulaire extends Vue {
         @Prop({ default: false })
         public ouvert!: boolean;
 

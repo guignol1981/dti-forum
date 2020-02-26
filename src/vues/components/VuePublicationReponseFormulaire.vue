@@ -19,12 +19,12 @@
     import Vue from 'vue';
     import Component from 'vue-class-component';
     import { Emit, Prop } from 'vue-property-decorator';
-    import { PublicationReponse } from '../modules/PublicationReponse/PublicationReponseDomaine';
     import {
         FormGroup,
         FormControl,
         RequiredValidator
     } from '@ulaval/modul-components';
+    import { PublicationReponse } from '../../modules/PublicationReponse/PublicationReponseDomaine';
 
     @Component
     export default class VuePublicationReponseFormulaire extends Vue {
