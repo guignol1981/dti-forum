@@ -1,5 +1,5 @@
+import { Publication, Publications } from './PublicationDomaine';
 import PublicationState from './PublicationState';
-import { Publications, Publication } from './PublicationDomaine';
 
 export function modifierPublications(
     state: PublicationState,
@@ -13,7 +13,7 @@ export function modifierPublication(
     publication: Publication
 ): void {
     state.publications.splice(
-        state.publications.map(p => p.id).indexOf(publication.id),
+        state.publications.map(p => p._id).indexOf(publication._id),
         1,
         publication
     );

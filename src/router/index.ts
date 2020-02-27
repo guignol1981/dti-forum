@@ -1,46 +1,58 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
-import PagePublications from '../vues/pages/PagePublications.vue';
+import VueRouter, { RouteConfig } from 'vue-router';
+import VueAPropos from '../vues/components/VueAPropos.vue';
+import VueProfil from '../vues/components/VueProfil.vue';
 import PageLogin from '../vues/pages/PageLogin.vue';
+import PagePublic from '../vues/pages/PagePublic.vue';
+import PagePublications from '../vues/pages/PagePublications.vue';
 
 Vue.use(VueRouter);
 
 export enum NomRoutes {
     PUBLICATIONS = 'Publications',
     PUBLICATION = 'Publication',
-    ABOUT = 'About',
-    PROFILE = 'Profile',
+    ABOUT = 'À propos',
+    PROFIL = 'Profil',
     LOGIN = 'login'
 }
 
-const routes = [
+const routes: RouteConfig[] = [
     {
         path: '/',
         name: NomRoutes.LOGIN,
         component: PageLogin
     },
     {
-        path: '/publications',
-        name: NomRoutes.PUBLICATIONS,
-        component: PagePublications
-    },
-    {
-        path: '/profile',
-        name: NomRoutes.PROFILE,
-        component: PagePublications
-    },
-    {
-        path: '/about',
-        name: NomRoutes.ABOUT,
-        component: PagePublications
-    },
-    {
-        path: '/publications/:id',
-        name: NomRoutes.PUBLICATION,
-        component: () =>
-            import(
-                /* webpackChunkName: "publication" */ '../vues/pages/PagePublication.vue'
-            )
+        path: '/public',
+        component: PagePublic,
+        redirect: {
+            name: NomRoutes.PUBLICATIONS
+        },
+        children: [
+            {
+                path: '/publications',
+                name: NomRoutes.PUBLICATIONS,
+                component: PagePublications
+            },
+            {
+                path: '/publications/:id',
+                name: NomRoutes.PUBLICATION,
+                component: () =>
+                    import(
+                        /* webpackChunkName: "publication" */ '../vues/pages/PagePublication.vue'
+                    )
+            },
+            {
+                path: '/profil',
+                name: NomRoutes.PROFIL,
+                component: VueProfil
+            },
+            {
+                path: '/a-propos',
+                name: NomRoutes.ABOUT,
+                component: VueAPropos
+            }
+        ]
     }
 ];
 

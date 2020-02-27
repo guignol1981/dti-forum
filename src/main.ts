@@ -6,11 +6,13 @@ import router from './router';
 import { StoreFactory } from './store/factory';
 import FilterPlugin from './VuePlugins/FilterPlugin';
 import FrPlugin from './VuePlugins/FrPlugin';
+import InterceptorPlugin from './VuePlugins/InterceptorPlugin';
 
 Vue.use(ModulComponentPlugin);
 Vue.use(FrenchPlugin);
 Vue.use(FrPlugin);
 Vue.use(FilterPlugin);
+Vue.use(InterceptorPlugin);
 
 Vue.config.productionTip = false;
 

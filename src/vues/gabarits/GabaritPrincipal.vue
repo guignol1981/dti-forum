@@ -1,61 +1,69 @@
 <template>
-    <div>
-        <header class="gabarit-principal__header">
-            <div class="gabarit-principal__header-wraper">
-                <h1>{{ titre }}</h1>
-                <img
-                    class="gabarit-principal-logo"
-                    src="https://apifriends.com/wp-content/uploads/2018/04/stack-overflow-orange.png"
-                />
+    <div class="gabarit-principal">
+        <header class="gabarit-principal__header-area">
+            <div class="gabarit-principal__header">
+                <VueLogoApp
+                    class="gabarit-principal__header-wraper"
+                ></VueLogoApp>
             </div>
-            <slot name="header"></slot>
+            <slot name="menu"></slot>
         </header>
-        <router-view></router-view>
+        <main class="gabarit-principal__body">
+            <div class="gabarit-principal__body-wraper">
+                <slot></slot>
+            </div>
+        </main>
     </div>
 </template>
 
 <script lang="ts">
     import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
+    import VueLogoApp from '../components/VueLogoApp.vue';
 
     @Component({
-        components: {}
+        components: {
+            VueLogoApp
+        }
     })
-    export default class GabaritPrincipal extends Vue {
-        @Prop({ default: 'DTI-Overflow' })
-        public titre!: string;
-    }
+    export default class GabaritPrincipal extends Vue {}
 </script>
 
 <style lang="scss" scoped>
     @import '~@ulaval/modul-components/dist/styles/commons';
 
     .gabarit-principal {
-        &-logo {
+        &__logo {
             width: 35px;
             height: 35px;
             margin-left: $m-spacing;
         }
 
-        &__header {
+        &__header-area {
             background: $m-color--grey-lighter;
         }
 
-        &__header-wraper {
+        &__header {
+            padding: $m-spacing--l $m-spacing;
+
+            @media (min-width: $m-mq--min--s) {
+                padding: $m-spacing--l $m-spacing--l;
+            }
+        }
+
+        &__header-wraper,
+        &__body-wraper {
             display: flex;
             margin: 0 auto;
-            padding: $m-spacing--l $m-spacing;
             width: 100%;
             max-width: $m-max-width;
         }
 
         &__body {
-            margin: 0 auto;
-            padding: $m-spacing--xxl $m-spacing;
-            width: 100%;
-            max-width: $m-max-width;
-        }
+            padding: $m-spacing--xl $m-spacing;
 
-        &__footer {
+            @media (min-width: $m-mq--min--s) {
+                padding: $m-spacing--xl $m-spacing--l;
+            }
         }
     }
 </style>

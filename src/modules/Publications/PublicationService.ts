@@ -1,7 +1,7 @@
-import { Publication } from '.api/publicationDomaine';
+import { RestService } from '@/rest-service';
 import { HttpService } from '@ulaval/modul-components/dist/utils/http/http';
 import Vue from 'vue';
-import { RestService } from '@/rest-service';
+import { Publication } from './PublicationDomaine';
 
 export class PublicationService implements RestService<Publication> {
     private readonly httpService: HttpService = Vue.prototype.$http;
@@ -13,7 +13,7 @@ export class PublicationService implements RestService<Publication> {
                 rawUrl: 'api/publications'
             })
             .then(response => {
-                return response.data.data;
+                return response.data;
             });
     }
 
@@ -23,7 +23,7 @@ export class PublicationService implements RestService<Publication> {
                 method: 'get',
                 rawUrl: `api/publications/${id}`
             })
-            .then(response => response.data.data);
+            .then(response => response.data);
     }
 
     public creer(ressource: Publication): Promise<Publication> {
@@ -33,14 +33,14 @@ export class PublicationService implements RestService<Publication> {
                 rawUrl: 'api/publications',
                 data: ressource
             })
-            .then(response => response.data.data);
+            .then(response => response.data);
     }
 
     public modifier(publication: Publication): Promise<Publication> {
         return this.httpService
             .execute<Publication>({
                 method: 'put',
-                rawUrl: `api/publications/${publication.id}`,
+                rawUrl: `api/publications/${publication._id}`,
                 data: publication
             })
             .then(response => response.data);

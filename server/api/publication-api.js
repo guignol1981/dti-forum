@@ -43,6 +43,19 @@ router.post('/', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+    PublicationModel.updateOne({ id: req.query.id }, req.body, (err, doc) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send({
+            data: doc,
+            msg: 'Publication created!'
+        });
+    });
+});
+
 router.delete('/:id', (req, res) => {
     PublicationModel.findOneAndDelete({ id: req.query.id }).exec(err => {
         if (err) {

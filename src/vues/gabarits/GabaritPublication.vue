@@ -32,9 +32,6 @@
         width: 100%;
         max-width: $m-max-width;
 
-        &__header {
-        }
-
         &__main {
             margin-top: $m-spacing--m;
         }
