@@ -1,13 +1,17 @@
-import { Module, ActionContext } from 'vuex';
 import { AppState } from '@/store/factory';
-import UserState from './UserState';
-import { Users, User } from './UserDomaine';
-import { modifierUser } from './UserMutations';
+import { ActionContext, Module } from 'vuex';
+import { User, Users } from './UserDomaine';
 import {
+    ACTION_CHERCHER_USER,
+    ACTION_ENREGISTRER_USER,
+    ACTION_LOGOUT,
+    ACTION_SIGNIN,
     GETTER_USER,
-    MUTATION_USER,
-    ACTION_CHERCHER_USER
+    MUTATION_USER
 } from './UserModuleDefinitions';
+import { modifierUser } from './UserMutations';
+import UserService from './UserService';
+import UserState from './UserState';
 
 export function UserModuleFactory(
     appState: AppState
@@ -31,6 +35,31 @@ export function UserModuleFactory(
                     .then((users: Users) =>
                         context.commit(MUTATION_USER, users)
                     );
+            },
+            [ACTION_ENREGISTRER_USER]: (
+                context: ActionContext<UserState, AppState>,
+                credential: {
+                    username?: string;
+                    email: string;
+                    password: string;
+                }
+            ): void => {
+                context.state.restService.creer(credential as User);
+            },
+            [ACTION_SIGNIN]: (
+                context: ActionContext<UserState, AppState>,
+                credential: { email: string; password: string }
+            ): void => {
+                (context.state.restService as UserService)
+                    .signIn(credential)
+                    .then((user: User) => context.commit(MUTATION_USER, user));
+            },
+            [ACTION_LOGOUT]: (
+                context: ActionContext<UserState, AppState>
+            ): void => {
+                (context.state.restService as UserService)
+                    .logout()
+                    .then(() => context.commit(MUTATION_USER, null));
             }
         }
     };

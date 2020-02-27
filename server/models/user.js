@@ -14,8 +14,7 @@ const userSchema = new Schema({
         match: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     },
     hash: { type: Schema.Types.String },
-    salt: { type: Schema.Types.String },
-    queryPacks: [{ type: Schema.Types.ObjectId, ref: 'QueryPack', default: [] }]
+    salt: { type: Schema.Types.String }
 });
 
 userSchema.methods.setPassword = function(password) {

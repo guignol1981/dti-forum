@@ -1,10 +1,10 @@
-import { User } from './UserDomaine';
+import RestService from '@/rest-service';
 import { HttpService } from '@ulaval/modul-components/dist/utils/http/http';
 import Vue from 'vue';
-import { RestService } from '@/rest-service';
+import { User } from './UserDomaine';
 
-export class UserService implements RestService<User> {
-    private readonly httpService: HttpService = Vue.prototype.$http;
+export default class UserService implements RestService<User> {
+    public readonly httpService: HttpService = Vue.prototype.$http;
 
     public rechercher(): Promise<User[]> {
         return this.httpService
@@ -27,8 +27,8 @@ export class UserService implements RestService<User> {
     public creer(ressource: User): Promise<User> {
         return this.httpService
             .execute<User>({
-                method: 'get',
-                rawUrl: `api/users`,
+                method: 'post',
+                rawUrl: `api/users/register`,
                 data: ressource
             })
             .then(response => response.data);
@@ -38,7 +38,7 @@ export class UserService implements RestService<User> {
         return this.httpService
             .execute<User>({
                 method: 'put',
-                rawUrl: `api/users/${user.id}`,
+                rawUrl: `api/users/${user._id}`,
                 data: user
             })
             .then(response => response.data);
@@ -49,6 +49,42 @@ export class UserService implements RestService<User> {
             .execute<void>({
                 method: 'delete',
                 rawUrl: `api/users/${id}`
+            })
+            .then(() => true);
+    }
+
+    public register(credential: {
+        username: string;
+        email: string;
+        password: string;
+    }): Promise<boolean> {
+        return this.httpService
+            .execute<boolean>({
+                method: 'post',
+                rawUrl: `api/users/register`,
+                data: credential
+            })
+            .then(response => response.data);
+    }
+
+    public signIn(credential: {
+        email: string;
+        password: string;
+    }): Promise<User> {
+        return this.httpService
+            .execute<User>({
+                method: 'post',
+                rawUrl: 'api/users/login',
+                data: credential
+            })
+            .then((reponse: any) => reponse.data);
+    }
+
+    public logout(): Promise<boolean> {
+        return this.httpService
+            .execute<boolean>({
+                method: 'post',
+                rawUrl: 'api/users/logout'
             })
             .then(() => true);
     }

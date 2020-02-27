@@ -4,6 +4,19 @@ const passport = require('passport');
 const UserModel = require('../models/user');
 const authenticate = require('../passport/authenticate');
 
+router.get('/', authenticate, (req, res) => {
+    UserModel.findById(req.user).exec((err, doc) => {
+        if (err) {
+            throw err;
+        }
+
+        res.send({
+            data: doc,
+            msg: 'User found!'
+        });
+    });
+});
+
 router.post('/login', passport.authenticate('local'), (req, res) => {
     res.send({
         data: true,

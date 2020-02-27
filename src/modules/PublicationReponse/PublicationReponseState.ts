@@ -1,10 +1,10 @@
-import {
-    PublicationReponses,
-    PublicationReponse
-} from './PublicationReponseDomaine';
+import RestService from '@/rest-service';
 import { AppState } from '@/store/factory';
+import {
+    PublicationReponse,
+    PublicationReponses
+} from './PublicationReponseDomaine';
 import { PublicationReponseServiceFactory } from './PublicationReponseServiceFactory';
-import { RestService } from '@/rest-service';
 
 export default class PublicationReponseState {
     public publicationReponses: PublicationReponses = [];

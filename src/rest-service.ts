@@ -1,4 +1,7 @@
-export interface RestService<T> {
+import { HttpService } from '@ulaval/modul-components/dist/utils/http/http';
+
+export default interface RestService<T> {
+    httpService: HttpService;
     rechercher: () => Promise<T[]>;
     rechercherParId: (id: string) => Promise<T>;
     creer: (ressource: T) => Promise<T>;

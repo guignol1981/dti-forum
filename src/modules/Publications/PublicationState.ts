@@ -1,7 +1,7 @@
-import { Publications, Publication } from './PublicationDomaine';
+import RestService from '@/rest-service';
 import { AppState } from '@/store/factory';
+import { Publication, Publications } from './PublicationDomaine';
 import { PublicationServiceFactory } from './PublicationServiceFactory';
-import { RestService } from '@/rest-service';
 
 export default class PublicationState {
     public publications: Publications = [];

@@ -1,5 +1,5 @@
 export interface {{SINGULAR_PASCAL}} {
-  id: string;
+  _id: string;
 }
 
 export type {{PLURAL_PASCAL}} = {{SINGULAR_PASCAL}}[];

@@ -1,8 +1,18 @@
 <template>
     <m-form :formGroup="formGroup" @submit="onSubmit()">
         <m-textfield
+            v-model="usernameControl.value"
+            v-m-control="usernameControl"
+            label="Username"
+            max-width="100%"
+            :error="usernameControl.hasError()"
+            :error-message="usernameControl.errorMessage"
+        ></m-textfield>
+
+        <m-textfield
             v-model="emailControl.value"
             v-m-control="emailControl"
+            class="m-u--margin-top"
             label="Email"
             type="email"
             max-width="100%"
@@ -64,6 +74,7 @@
 
         public formGroup: FormGroup = new FormGroup(
             {
+                username: new FormControl<string>([RequiredValidator()]),
                 email: new FormControl<string>([RequiredValidator()]),
                 password: new FormControl<string>([RequiredValidator()]),
                 confirmPassword: new FormControl<string>([])
@@ -86,6 +97,10 @@
                 } as ControlValidator
             ]
         );
+
+        public get usernameControl(): FormControl<string> {
+            return this.formGroup.getControl('username') as FormControl<string>;
+        }
 
         public get emailControl(): FormControl<string> {
             return this.formGroup.getControl('email') as FormControl<string>;

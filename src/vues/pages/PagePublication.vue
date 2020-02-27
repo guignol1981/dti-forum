@@ -72,7 +72,7 @@
 
         protected created(): void {
             this.consulterPublication(this.$route.params['id']);
-            this.chercherPublicationReponses();
+            // this.chercherPublicationReponses();
 
             this.$scrollTo.goToTop();
         }

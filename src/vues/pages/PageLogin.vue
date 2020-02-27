@@ -37,6 +37,14 @@
     } from '@ulaval/modul-components';
     import VueSignInFormulaire from '../components/VueSignInFormulaire.vue';
     import VueRegisterFormulaire from '../components/VueRegisterFormulaire.vue';
+    import { namespace } from 'vuex-class';
+    import {
+        ACTION_ENREGISTRER_USER,
+        ACTION_SIGNIN
+    } from '../../modules/User/UserModuleDefinitions';
+    import { NomRoutes } from '../../router';
+
+    const userModule = namespace('user');
 
     enum PageLoginModes {
         SIGN_IN = 'Sign in',
@@ -51,6 +59,18 @@
         }
     })
     export default class PageLogin extends Vue {
+        @userModule.Action(ACTION_ENREGISTRER_USER)
+        public enregistrerUser!: (credential: {
+            email: string;
+            password: string;
+        }) => void;
+
+        @userModule.Action(ACTION_SIGNIN)
+        public signIn!: (credential: {
+            email: string;
+            password: string;
+        }) => void;
+
         public pageLoginModes = PageLoginModes;
         public mode: PageLoginModes = PageLoginModes.SIGN_IN;
 
@@ -58,7 +78,19 @@
             this.$scrollTo.goToTop();
         }
 
-        public onSubmit(value: { email: string; password: string }): void {}
+        public onSubmit(credential: {
+            username?: string;
+            email: string;
+            password: string;
+        }): void {
+            if (this.mode === PageLoginModes.REGISTER) {
+                this.enregistrerUser(credential);
+            } else {
+                this.signIn(credential);
+            }
+
+            this.$router.push({ name: NomRoutes.PUBLICATIONS });
+        }
 
         public get slideTransitionDirection(): string {
             return this.mode === PageLoginModes.SIGN_IN

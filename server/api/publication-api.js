@@ -4,7 +4,7 @@ const passport = require('passport');
 const PublicationModel = require('../models/publication');
 const authenticate = require('../passport/authenticate');
 
-router.get('/:id', (req, res) => {
+router.get('/:id', authenticate, (req, res) => {
     PublicationModel.findById(req.query.id).exec((err, doc) => {
         if (err) {
             throw err;
@@ -17,33 +17,38 @@ router.get('/:id', (req, res) => {
     });
 });
 
-router.get('/', (req, res) => {
-    PublicationModel.find().exec((err, docs) => {
-        if (err) {
-            throw err;
-        }
+router.get('/', authenticate, (req, res) => {
+    PublicationModel.find()
+        .populate('author')
+        .exec((err, docs) => {
+            if (err) {
+                throw err;
+            }
 
-        res.send({
-            data: docs,
-            msg: 'Publications found!'
+            res.send({
+                data: docs,
+                msg: 'Publications found!'
+            });
         });
-    });
 });
 
-router.post('/', (req, res) => {
-    PublicationModel.create(req.body, (err, doc) => {
-        if (err) {
-            throw err;
-        }
+router.post('/', authenticate, (req, res) => {
+    PublicationModel.create(
+        Object.assign(req.body, { author: req.user }),
+        (err, doc) => {
+            if (err) {
+                throw err;
+            }
 
-        res.send({
-            data: doc,
-            msg: 'Publication created!'
-        });
-    });
+            res.send({
+                data: doc,
+                msg: 'Publication created!'
+            });
+        }
+    );
 });
 
-router.put('/:id', (req, res) => {
+router.put('/:id', authenticate, (req, res) => {
     PublicationModel.updateOne({ id: req.query.id }, req.body, (err, doc) => {
         if (err) {
             throw err;
@@ -56,7 +61,7 @@ router.put('/:id', (req, res) => {
     });
 });
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', authenticate, (req, res) => {
     PublicationModel.findOneAndDelete({ id: req.query.id }).exec(err => {
         if (err) {
             throw err;

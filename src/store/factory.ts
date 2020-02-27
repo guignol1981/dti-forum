@@ -1,7 +1,8 @@
-import Vue from 'vue';
-import Vuex, { Store, ActionContext } from 'vuex';
-import PublicationModuleFactory from '@/modules/Publications/PublicationModule';
 import PublicationReponseModuleFactory from '@/modules/PublicationReponse/PublicationReponseModule';
+import PublicationModuleFactory from '@/modules/Publications/PublicationModule';
+import UserModuleFactory from '@/modules/User/UserModule';
+import Vue from 'vue';
+import Vuex, { Store } from 'vuex';
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ export function StoreFactory(): Store<AppState> {
         state: appState,
         modules: {
             publication: PublicationModuleFactory(appState),
-            publicationReponse: PublicationReponseModuleFactory(appState)
+            publicationReponse: PublicationReponseModuleFactory(appState),
+            user: UserModuleFactory(appState)
         }
     });
 }

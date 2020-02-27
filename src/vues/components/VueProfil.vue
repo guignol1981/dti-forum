@@ -4,12 +4,12 @@
             <img />
         </div>
         <div class="profil__body">
-            <h1 class="profil__name">Vincent Guillemette</h1>
+            <h1 class="profil__name">{{ user.username }}</h1>
             <p class="profil__email">
                 <a
                     class="m-u--link"
                     href="mailto:vincent.guillemette@dti.ulaval.ca"
-                    >vincent.guillemette@dti.ulaval.ca</a
+                    >{{ user.email }}</a
                 >
             </p>
         </div>
@@ -19,9 +19,17 @@
 <script lang="ts">
     import Vue from 'vue';
     import { Component, Prop, Emit } from 'vue-property-decorator';
+    import { namespace } from 'vuex-class';
+    import { GETTER_USER } from '../../modules/User/UserModuleDefinitions';
+    import { User } from '../../modules/User/UserDomaine';
+
+    const userModule = namespace('user');
 
     @Component
-    export default class VueProfil extends Vue {}
+    export default class VueProfil extends Vue {
+        @userModule.Getter(GETTER_USER)
+        public user!: User;
+    }
 </script>
 
 <style scoped lang="scss">

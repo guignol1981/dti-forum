@@ -1,10 +1,10 @@
-import { RestService } from '@/rest-service';
+import RestService from '@/rest-service';
 import { HttpService } from '@ulaval/modul-components/dist/utils/http/http';
 import Vue from 'vue';
 import { Publication } from './PublicationDomaine';
 
 export class PublicationService implements RestService<Publication> {
-    private readonly httpService: HttpService = Vue.prototype.$http;
+    public readonly httpService: HttpService = Vue.prototype.$http;
 
     public rechercher(): Promise<Publication[]> {
         return this.httpService

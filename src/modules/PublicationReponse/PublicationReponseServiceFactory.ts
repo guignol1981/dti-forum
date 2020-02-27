@@ -1,5 +1,5 @@
+import RestService from '@/rest-service';
 import { PublicationReponse } from './PublicationReponseDomaine';
-import { RestService } from '@/rest-service';
 
 export function PublicationReponseServiceFactory(): RestService<
     PublicationReponse

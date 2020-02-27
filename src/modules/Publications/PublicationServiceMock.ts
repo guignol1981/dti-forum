@@ -1,8 +1,9 @@
+import RestService from '@/rest-service';
 import { Publication } from './PublicationDomaine';
 import { SET_2 } from './PublicationMock';
-import { RestService } from '@/rest-service';
 
 export class PublicationServiceMock implements RestService<Publication> {
+    public httpService = {} as any;
     private publications: Publication[] = [...SET_2];
 
     public rechercher(): Promise<Publication[]> {
