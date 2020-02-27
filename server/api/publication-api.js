@@ -5,7 +5,7 @@ const PublicationModel = require('../models/publication');
 const authenticate = require('../passport/authenticate');
 
 router.get('/:id', authenticate, (req, res) => {
-    PublicationModel.findById(req.query.id).exec((err, doc) => {
+    PublicationModel.findById(req.para.id).exec((err, doc) => {
         if (err) {
             throw err;
         }
@@ -49,23 +49,28 @@ router.post('/', authenticate, (req, res) => {
 });
 
 router.put('/:id', authenticate, (req, res) => {
-    PublicationModel.updateOne({ id: req.query.id }, req.body, (err, doc) => {
-        if (err) {
-            throw err;
-        }
+    PublicationModel.findById(req.params.id)
+        .populate('author')
+        .exec((err, doc) => {
+            if (err) throw err;
 
-        res.send({
-            data: doc,
-            msg: 'Publication created!'
+            Object.assign(doc, req.body);
+            doc.save().then(doc => {
+                res.send({
+                    data: doc,
+                    msg: 'Publication updated!'
+                });
+            });
         });
-    });
 });
 
 router.delete('/:id', authenticate, (req, res) => {
-    PublicationModel.findOneAndDelete({ id: req.query.id }).exec(err => {
+    PublicationModel.findById(req.params.id).exec((err, doc) => {
         if (err) {
             throw err;
         }
+
+        doc.remove();
 
         res.send({
             data: true,

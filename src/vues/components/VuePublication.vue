@@ -27,18 +27,18 @@
                     iconName="m-svg__arrow--up"
                     buttonSize="32px"
                     iconSize="20px"
-                    skin="light"
+                    :skin="hasUpvote ? 'primary' : 'light'"
                     @click="onUpvoteClicked()"
                 ></m-icon-button>
-                {{ publication.upvoteCount }}
+                {{ publication.upvotes.length }}
                 <m-icon-button
                     iconName="m-svg__arrow--down"
                     buttonSize="32px"
                     iconSize="20px"
-                    skin="light"
+                    :skin="hasDownvote ? 'primary' : 'light'"
                     @click="onDownvoteClicked()"
                 ></m-icon-button>
-                -{{ publication.downvoteCount }}
+                {{ publication.downvotes.length }}
             </div>
             <div>
                 <m-link :url="publicationDetailsLocation">Détails</m-link>
@@ -59,6 +59,12 @@
     import { Publication } from '../../modules/Publications/PublicationDomaine';
     import { NomRoutes } from '../../router';
     import { Location } from 'vue-router';
+    import { namespace } from 'vuex-class';
+    import { GETTER_USER } from '../../modules/User/UserModuleDefinitions';
+    import { User } from '../../modules/User/UserDomaine';
+    const _ = require('lodash');
+
+    const userModule = namespace('user');
 
     @Component
     export default class VuePublication extends Vue {
@@ -69,6 +75,9 @@
         @Emit('modifiee')
         public emitModifiee(publication: Publication): void {}
 
+        @userModule.Getter(GETTER_USER)
+        public user!: User;
+
         public publicationDetailsLocation: Location = {
             name: NomRoutes.PUBLICATION,
             params: {
@@ -76,20 +85,52 @@
             }
         };
 
+        public get hasUpvote(): boolean {
+            return !!this.publication.upvotes!.find(u => u == this.user._id);
+        }
+
+        public get hasDownvote(): boolean {
+            return !!this.publication.downvotes!.find(u => u == this.user._id);
+        }
+
         public onUpvoteClicked(): void {
-            this.emitModifiee(
-                Object.assign(this.publication, {
-                    upvoteCount: ++this.publication.upvoteCount!
-                })
-            );
+            const clone: Publication = _.cloneDeep(this.publication);
+
+            if (!this.hasUpvote) {
+                if (this.hasDownvote) {
+                    clone.downvotes!.splice(
+                        clone.downvotes!.indexOf(this.user._id!),
+                        1
+                    );
+                }
+                clone.upvotes!.push(this.user._id!);
+            } else {
+                clone.upvotes!.splice(
+                    clone.upvotes!.indexOf(this.user._id!),
+                    1
+                );
+            }
+            this.emitModifiee(clone);
         }
 
         public onDownvoteClicked(): void {
-            this.emitModifiee(
-                Object.assign(this.publication, {
-                    downvoteCount: ++this.publication.downvoteCount!
-                })
-            );
+            const clone: Publication = Object.assign({}, this.publication);
+
+            if (!this.hasDownvote) {
+                if (this.hasUpvote) {
+                    clone.upvotes!.splice(
+                        clone.upvotes!.indexOf(this.user._id!),
+                        1
+                    );
+                }
+                clone.downvotes!.push(this.user._id!);
+            } else {
+                clone.downvotes!.splice(
+                    clone.downvotes!.indexOf(this.user._id!),
+                    1
+                );
+            }
+            this.emitModifiee(clone);
         }
     }
 </script>

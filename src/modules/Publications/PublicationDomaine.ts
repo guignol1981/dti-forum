@@ -5,8 +5,8 @@ export interface Publication {
     titre: string;
     corps: string;
     author?: User;
-    upvoteCount?: number;
-    downvoteCount?: number;
+    upvotes?: string[];
+    downvotes?: string[];
 }
 
 export type Publications = Publication[];

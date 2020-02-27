@@ -1,28 +1,28 @@
-import { Module, ActionContext, Action } from 'vuex';
 import { AppState } from '@/store/factory';
-import PublicationState from './PublicationState';
-import { Publications, Publication } from './PublicationDomaine';
+import { ActionContext, Module } from 'vuex';
+import { Publication, Publications } from './PublicationDomaine';
 import {
-    modifierPublications,
-    modifierPublication,
-    supprimerPublication,
-    modifierPublicationConsultation,
-    ajouterPublication
-} from './PublicationMutations';
-import {
-    GETTER_PUBLICATIONS,
-    MUTATION_PUBLICATIONS,
+    ACTION_AJOUTER_PUBLICATION,
     ACTION_CHERCHER_PUBLICATIONS,
-    MUTATION_MODIFIER_PUBLICATION,
-    MUTATION_SUPPRIMER_PUBLICATION,
+    ACTION_CONSULTER_PUBLICATION,
     ACTION_MODIFIER_PUBLICATION,
     ACTION_SUPPRIMER_PUBLICATION,
-    ACTION_CONSULTER_PUBLICATION,
-    MUTATION_PUBLICATION_CONSULTATION,
+    GETTER_PUBLICATIONS,
     GETTER_PUBLICATION_CONSULTATION,
-    ACTION_AJOUTER_PUBLICATION,
-    MUTATION_AJOUTER_PUBLICATION
+    MUTATION_AJOUTER_PUBLICATION,
+    MUTATION_MODIFIER_PUBLICATION,
+    MUTATION_PUBLICATIONS,
+    MUTATION_PUBLICATION_CONSULTATION,
+    MUTATION_SUPPRIMER_PUBLICATION
 } from './PublicationModuleDefinition';
+import {
+    ajouterPublication,
+    modifierPublication,
+    modifierPublicationConsultation,
+    modifierPublications,
+    supprimerPublication
+} from './PublicationMutations';
+import PublicationState from './PublicationState';
 
 export function PublicationModuleFactory(
     appState: AppState
