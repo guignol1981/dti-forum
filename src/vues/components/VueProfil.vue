@@ -1,7 +1,9 @@
 <template>
     <div class="profil">
         <div class="profil__image">
-            <img />
+            <img
+                src="https://cdn5.vectorstock.com/i/1000x1000/99/94/default-avatar-placeholder-profile-icon-male-vector-23889994.jpg"
+            />
         </div>
         <div class="profil__body">
             <h1 class="profil__name">{{ user.username }}</h1>
@@ -57,7 +59,7 @@
             height: 70px;
             overflow: hidden;
             border-radius: 50%;
-            display: flex;
+            // display: flex;
             align-items: center;
             justify-content: center;
             background: $m-color--grey-light;
