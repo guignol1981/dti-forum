@@ -38,7 +38,7 @@
                 <div>
                     <m-link :url="publicationDetailsLocation">Détails</m-link>
                     <m-icon-button
-                        @click="emitSupprimee(publication.id)"
+                        @click="emitSupprimee(publication._id)"
                         iconName="m-svg__delete"
                         buttonSize="32px"
                         iconSize="20px"
@@ -68,7 +68,7 @@
         public publicationDetailsLocation: Location = {
             name: NomRoutes.PUBLICATION,
             params: {
-                id: this.publication.id!
+                id: this.publication._id!
             }
         };
 

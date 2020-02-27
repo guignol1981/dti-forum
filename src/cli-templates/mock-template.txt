@@ -2,6 +2,6 @@ import { {{PLURAL_PASCAL}} } from './{{SINGULAR_PASCAL}}Domaine';
 
 export const SET_1: {{PLURAL_PASCAL}} = [
   {
-    id: '1'
+    _id: '1'
   }
 ];

@@ -10,9 +10,9 @@
         <template slot="sub">
             <VuePublicationReponseFormulaire></VuePublicationReponseFormulaire>
         </template>
-        <VuePublicationReponses
+        <!-- <VuePublicationReponses
             :publicationReponses="publicationReponses"
-        ></VuePublicationReponses>
+        ></VuePublicationReponses> -->
         <template slot="footer"></template>
     </GabaritPublication>
 </template>
@@ -63,7 +63,7 @@
 
         protected created(): void {
             this.consulterPublication(this.$route.params['id']);
-            this.chercherPublicationReponses();
+            // this.chercherPublicationReponses();
         }
     }
 </script>

@@ -7,7 +7,7 @@ export const SET_2: Publications = new Array(RandomMinMax(30, 100))
         (_, i) => (
             i++,
             {
-                id: i.toString(),
+                _id: i.toString(),
                 titre: LoremGenerate(RandomMinMax(10, 10)),
                 corps: LoremGenerate(RandomMinMax(20, 400)),
                 upvoteCount: RandomMinMax(0, 100),

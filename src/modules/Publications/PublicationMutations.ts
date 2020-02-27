@@ -30,7 +30,10 @@ export function supprimerPublication(
     state: PublicationState,
     id: string
 ): void {
-    state.publications.splice(state.publications.map(p => p.id).indexOf(id), 1);
+    state.publications.splice(
+        state.publications.map(p => p._id).indexOf(id),
+        1
+    );
 }
 
 export function modifierPublicationConsultation(

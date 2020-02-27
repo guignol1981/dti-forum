@@ -10,7 +10,7 @@ export class PublicationServiceMock implements RestService<Publication> {
     }
 
     public rechercherParId(id: string): Promise<Publication> {
-        return Promise.resolve(this.publications.find(p => p.id === id)!);
+        return Promise.resolve(this.publications.find(p => p._id === id)!);
     }
 
     public creer(ressource: Publication): Promise<Publication> {

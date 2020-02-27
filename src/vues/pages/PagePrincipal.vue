@@ -1,7 +1,7 @@
 <template>
     <GabaritPrincipal>
         <template slot="header">
-            <VueEntete v-if="false"></VueEntete>
+            <VueEntete></VueEntete>
         </template>
     </GabaritPrincipal>
 </template>

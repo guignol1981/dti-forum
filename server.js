@@ -12,6 +12,7 @@ const expressSession = require('express-session');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const userApi = require('./server/api/user-api');
+const publicationApi = require('./server/api/publication-api');
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -37,6 +38,7 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api/users', userApi);
+app.use('/api/publications', publicationApi);
 
 app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'dist/index.html')));
 
