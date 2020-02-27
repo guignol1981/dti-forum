@@ -8,8 +8,6 @@ import FilterPlugin from './VuePlugins/FilterPlugin';
 import FrPlugin from './VuePlugins/FrPlugin';
 import InterceptorPlugin from './VuePlugins/InterceptorPlugin';
 
-console.log(process.env);
-
 Vue.use(ModulComponentPlugin);
 Vue.use(FrenchPlugin);
 Vue.use(FrPlugin);
