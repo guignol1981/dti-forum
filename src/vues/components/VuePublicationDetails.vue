@@ -5,22 +5,7 @@
                 {{ publication.titre | capitalize }}
             </h1>
             <div class="publication-details__right-header-contain">
-                <m-icon-button
-                    iconName="m-svg__arrow--up"
-                    buttonSize="32px"
-                    iconSize="20px"
-                    skin="light"
-                    @click="onUpvoteClicked()"
-                ></m-icon-button>
-                {{ publication.upvoteCount }}
-                <m-icon-button
-                    iconName="m-svg__arrow--down"
-                    buttonSize="32px"
-                    iconSize="20px"
-                    skin="light"
-                    @click="onDownvoteClicked()"
-                ></m-icon-button>
-                -{{ publication.downvoteCount }}
+                <slot name="voter"></slot>
             </div>
         </header>
         <div class="publication-details__body" v-html="publication.corps"></div>

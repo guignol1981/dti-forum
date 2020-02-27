@@ -4,14 +4,14 @@ import { SET_1 } from './UserMock';
 
 export class UserServiceMock implements RestService<User> {
     public httpService = {} as any;
-    private users: User[] = SET_1;
+    private user: User = SET_1;
 
     public rechercher(): Promise<User[]> {
-        return Promise.resolve<User[]>([...this.users]);
+        return Promise.resolve<User[]>(this.user as any);
     }
 
     public rechercherParId(id: string): Promise<User> {
-        return Promise.resolve(this.users.find(u => u._id! === id)!);
+        return Promise.resolve(this.user);
     }
 
     public creer(ressource: User): Promise<User> {
@@ -19,7 +19,8 @@ export class UserServiceMock implements RestService<User> {
     }
 
     public modifier(ressource: User): Promise<User> {
-        return Promise.resolve(ressource);
+        this.user = ressource;
+        return Promise.resolve(this.user);
     }
 
     public supprimer(id: string): Promise<boolean> {

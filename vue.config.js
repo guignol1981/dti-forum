@@ -8,7 +8,8 @@ module.exports = {
             new webpack.NormalModuleReplacementPlugin(/(.*)MOCK(\.*)/, function(
                 resource
             ) {
-                const suffix = process.env.MOCK === 'true' ? 'Mock' : '';
+                const suffix =
+                    process.env.VUE_APP_MOCK === 'true' ? 'Mock' : '';
                 resource.request = resource.request.replace(/MOCK/, suffix);
             })
         ]

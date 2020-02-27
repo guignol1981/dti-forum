@@ -11,8 +11,8 @@ export const SET_2: Publications = new Array(RandomMinMax(30, 100))
                 author: { _id: '1', username: 'test', email: 'test@test.com' },
                 titre: LoremGenerate(RandomMinMax(10, 10)),
                 corps: LoremGenerate(RandomMinMax(20, 400)),
-                upvoteCount: RandomMinMax(0, 100),
-                downvoteCount: RandomMinMax(0, 100)
+                upvotes: [],
+                downvotes: []
             }
         )
     );

@@ -5,16 +5,18 @@ const PublicationModel = require('../models/publication');
 const authenticate = require('../passport/authenticate');
 
 router.get('/:id', authenticate, (req, res) => {
-    PublicationModel.findById(req.para.id).exec((err, doc) => {
-        if (err) {
-            throw err;
-        }
+    PublicationModel.findById(req.params.id)
+        .populate('author')
+        .exec((err, doc) => {
+            if (err) {
+                throw err;
+            }
 
-        res.send({
-            data: doc,
-            msg: 'Publication found!'
+            res.send({
+                data: doc,
+                msg: 'Publication found!'
+            });
         });
-    });
 });
 
 router.get('/', authenticate, (req, res) => {

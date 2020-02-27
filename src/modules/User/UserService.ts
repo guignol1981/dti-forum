@@ -5,12 +5,13 @@ import { User } from './UserDomaine';
 
 export default class UserService implements RestService<User> {
     public readonly httpService: HttpService = Vue.prototype.$http;
+    private readonly baseUrl: string = `${process.env.VUE_APP_BASE_URL}/api/users`;
 
     public rechercher(): Promise<User[]> {
         return this.httpService
             .execute<User[]>({
                 method: 'get',
-                rawUrl: 'api/users'
+                rawUrl: this.baseUrl
             })
             .then(response => response.data);
     }
@@ -19,7 +20,7 @@ export default class UserService implements RestService<User> {
         return this.httpService
             .execute<User>({
                 method: 'get',
-                rawUrl: `api/users/${id}`
+                rawUrl: `${this.baseUrl}/${id}`
             })
             .then(response => response.data);
     }
@@ -28,7 +29,7 @@ export default class UserService implements RestService<User> {
         return this.httpService
             .execute<User>({
                 method: 'post',
-                rawUrl: `api/users/register`,
+                rawUrl: `${this.baseUrl}/register`,
                 data: ressource
             })
             .then(response => response.data);
@@ -38,7 +39,7 @@ export default class UserService implements RestService<User> {
         return this.httpService
             .execute<User>({
                 method: 'put',
-                rawUrl: `api/users/${user._id}`,
+                rawUrl: `${this.baseUrl}/${user._id}`,
                 data: user
             })
             .then(response => response.data);
@@ -48,7 +49,7 @@ export default class UserService implements RestService<User> {
         return this.httpService
             .execute<void>({
                 method: 'delete',
-                rawUrl: `api/users/${id}`
+                rawUrl: `${this.baseUrl}/${id}`
             })
             .then(() => true);
     }
@@ -61,7 +62,7 @@ export default class UserService implements RestService<User> {
         return this.httpService
             .execute<boolean>({
                 method: 'post',
-                rawUrl: `api/users/register`,
+                rawUrl: `${this.baseUrl}/register`,
                 data: credential
             })
             .then(response => response.data);
@@ -74,7 +75,7 @@ export default class UserService implements RestService<User> {
         return this.httpService
             .execute<User>({
                 method: 'post',
-                rawUrl: 'api/users/login',
+                rawUrl: `${this.baseUrl}/login`,
                 data: credential
             })
             .then((reponse: any) => reponse.data);
@@ -84,7 +85,7 @@ export default class UserService implements RestService<User> {
         return this.httpService
             .execute<boolean>({
                 method: 'post',
-                rawUrl: 'api/users/logout'
+                rawUrl: `${this.baseUrl}/logout`
             })
             .then(() => true);
     }

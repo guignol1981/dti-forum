@@ -2,6 +2,7 @@
     <VueListePublications
         class="page-publications"
         :publications="publications"
+        :user="user"
         @ajouter-publication="ajouterPublication($event)"
         @modifier-publication="modifierPublication($event)"
         @supprimer-publication="supprimerPublication($event)"
@@ -28,9 +29,11 @@
     import { ScrollToDuration } from '@ulaval/modul-components/dist/utils/scroll-to/scroll-to';
     import VueListePublications from '../components/VueListePublications.vue';
     import { MediaQueries } from '@ulaval/modul-components/dist/mixins/media-queries/media-queries';
+    import { GETTER_USER } from '../../modules/User/UserModuleDefinitions';
+    import { User } from '../../modules/User/UserDomaine';
 
     const publicationModule = namespace('publication');
-
+    const userModule = namespace('user');
     @Component({
         components: {
             VueListePublications
@@ -40,6 +43,8 @@
     export default class PagePublication extends Vue {
         @publicationModule.Getter(GETTER_PUBLICATIONS)
         public publications!: Publications;
+        @userModule.Getter(GETTER_USER)
+        public user!: User;
 
         @publicationModule.Action(ACTION_CHERCHER_PUBLICATIONS)
         public chercherPublications!: () => void;

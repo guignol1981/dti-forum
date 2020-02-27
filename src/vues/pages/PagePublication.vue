@@ -11,7 +11,14 @@
             v-if="!!publication"
             class="m-u--margin-top--xs"
             :publication="publication"
-        ></VuePublicationDetails>
+        >
+            <VueVoter
+                slot="voter"
+                :publication="publication"
+                :user="user"
+                @modifiee="modifierPublication($event)"
+            ></VueVoter>
+        </VuePublicationDetails>
         <VuePublicationReponseFormulaire
             class="m-u--margin-top--xl"
         ></VuePublicationReponseFormulaire>
@@ -31,7 +38,8 @@
     import VuePublicationReponses from '../components/VuePublicationReponses.vue';
     import {
         GETTER_PUBLICATION_CONSULTATION,
-        ACTION_CONSULTER_PUBLICATION
+        ACTION_CONSULTER_PUBLICATION,
+        ACTION_MODIFIER_PUBLICATION
     } from '../../modules/Publications/PublicationModuleDefinition';
     import {
         GETTER_PUBLICATION_REPONSES,
@@ -44,9 +52,13 @@
     import VuePublicationReponseFormulaire from '../components/VuePublicationReponseFormulaire.vue';
     import { MLinkMode } from '@ulaval/modul-components/dist/components/link/link';
     import { NomRoutes } from '@/router';
+    import VueVoter from '../components/VueVoter.vue';
+    import { GETTER_USER } from '../../modules/User/UserModuleDefinitions';
+    import { User } from '../../modules/User/UserDomaine';
 
     const publicationModule = namespace('publication');
     const publicationReponseModule = namespace('publicationReponse');
+    const userModule = namespace('user');
 
     @Component({
         components: {
@@ -54,7 +66,8 @@
             VuePublication,
             VuePublicationDetails,
             VuePublicationReponses,
-            VuePublicationReponseFormulaire
+            VuePublicationReponseFormulaire,
+            VueVoter
         }
     })
     export default class PagePublication extends Vue {
@@ -62,12 +75,15 @@
         public publication!: Publication;
         @publicationReponseModule.Getter(GETTER_PUBLICATION_REPONSES)
         public publicationReponses!: PublicationReponses;
+        @userModule.Getter(GETTER_USER)
+        public user!: User;
 
         @publicationModule.Action(ACTION_CONSULTER_PUBLICATION)
         public consulterPublication!: (id: string) => void;
+        @publicationModule.Action(ACTION_MODIFIER_PUBLICATION)
+        public modifierPublication!: (publication: Publication) => void;
         @publicationReponseModule.Action(ACTION_CHERCHER_PUBLICATION_REPONSES)
         public chercherPublicationReponses!: () => void;
-
         public nomRoutePublication: string = NomRoutes.PUBLICATIONS;
 
         protected created(): void {

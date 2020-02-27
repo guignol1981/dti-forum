@@ -89,7 +89,9 @@
                 this.signIn(credential);
             }
 
-            this.$router.push({ name: NomRoutes.PUBLICATIONS });
+            setTimeout(() => {
+                this.$router.push({ name: NomRoutes.PUBLICATIONS });
+            }, 1000);
         }
 
         public get slideTransitionDirection(): string {

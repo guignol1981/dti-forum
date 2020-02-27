@@ -3,8 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "vue-cli-service serve",
-        "start": "concurrently --kill-others \"vue-cli-service build --watch\" \"nodemon server.js\"",
+        "dev": "vue-cli-service serve --mode mock",
+        "dev-http": "concurrently --kill-others \"vue-cli-service build --watch --mode http\" \"nodemon server.js\"",
+        "start": "node server.js",
         "build": "vue-cli-service build",
         "test:unit": "vue-cli-service test:unit",
         "lint": "vue-cli-service lint",

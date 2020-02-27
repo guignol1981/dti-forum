@@ -22,27 +22,11 @@
         </div>
         <div class="publication__body" v-html="publication.corps"></div>
         <div slot="footer" class="publication__footer">
-            <div>
-                <m-icon-button
-                    iconName="m-svg__arrow--up"
-                    buttonSize="32px"
-                    iconSize="20px"
-                    :skin="hasUpvote ? 'primary' : 'light'"
-                    @click="onUpvoteClicked()"
-                ></m-icon-button>
-                {{ publication.upvotes.length }}
-                <m-icon-button
-                    iconName="m-svg__arrow--down"
-                    buttonSize="32px"
-                    iconSize="20px"
-                    :skin="hasDownvote ? 'primary' : 'light'"
-                    @click="onDownvoteClicked()"
-                ></m-icon-button>
-                {{ publication.downvotes.length }}
-            </div>
+            <slot name="voter"></slot>
             <div>
                 <m-link :url="publicationDetailsLocation">Détails</m-link>
                 <m-icon-button
+                    v-if="publication.author._id === this.user._id"
                     @click="emitSupprimee(publication._id)"
                     iconName="m-svg__delete"
                     buttonSize="32px"

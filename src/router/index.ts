@@ -71,7 +71,7 @@ const routes: RouteConfig[] = [
 
 const router = new VueRouter({
     mode: 'history',
-    base: process.env.BASE_URL,
+    // base: process.env.VUE_APP_BASE_URL,
     routes
 });
 
@@ -79,7 +79,7 @@ const isAuthenticated: Function = (): Promise<boolean> => {
     return (Vue.prototype.$http as HttpService)
         .execute<boolean>({
             method: 'get',
-            rawUrl: 'api/users/is-authenticated'
+            rawUrl: process.env.VUE_APP_BASE_URL + '/api/users/is-authenticated'
         })
         .then((response: any) => response.data)
         .catch(() => false);
@@ -87,7 +87,7 @@ const isAuthenticated: Function = (): Promise<boolean> => {
 
 router.beforeEach(async (to, from, next) => {
     if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!(await isAuthenticated())) {
+        if (process.env.VUE_APP_MOCK !== 'true' && !(await isAuthenticated())) {
             next({ name: NomRoutes.LOGIN });
         } else {
             next();

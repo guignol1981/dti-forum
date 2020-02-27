@@ -5,12 +5,13 @@ import { Publication } from './PublicationDomaine';
 
 export class PublicationService implements RestService<Publication> {
     public readonly httpService: HttpService = Vue.prototype.$http;
+    private readonly baseUrl: string = `${process.env.VUE_APP_BASE_URL}/api/publications`;
 
     public rechercher(): Promise<Publication[]> {
         return this.httpService
             .execute<Publication[]>({
                 method: 'get',
-                rawUrl: 'api/publications'
+                rawUrl: this.baseUrl
             })
             .then(response => {
                 return response.data;
@@ -21,7 +22,7 @@ export class PublicationService implements RestService<Publication> {
         return this.httpService
             .execute<Publication>({
                 method: 'get',
-                rawUrl: `api/publications/${id}`
+                rawUrl: `${this.baseUrl}/${id}`
             })
             .then(response => response.data);
     }
@@ -30,7 +31,7 @@ export class PublicationService implements RestService<Publication> {
         return this.httpService
             .execute<Publication>({
                 method: 'post',
-                rawUrl: 'api/publications',
+                rawUrl: this.baseUrl,
                 data: ressource
             })
             .then(response => response.data);
@@ -40,7 +41,7 @@ export class PublicationService implements RestService<Publication> {
         return this.httpService
             .execute<Publication>({
                 method: 'put',
-                rawUrl: `api/publications/${publication._id}`,
+                rawUrl: `${this.baseUrl}/${publication._id}`,
                 data: publication
             })
             .then(response => response.data);
@@ -50,7 +51,7 @@ export class PublicationService implements RestService<Publication> {
         return this.httpService
             .execute<void>({
                 method: 'delete',
-                rawUrl: `api/publications/${id}`
+                rawUrl: `${this.baseUrl}/${id}`
             })
             .then(() => true);
     }

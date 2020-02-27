@@ -19,7 +19,14 @@
                 :publication="publication"
                 @modifiee="onPublicationModifee($event)"
                 @supprimee="onPublicationSupprimee($event)"
-            ></VuePublication>
+            >
+                <VueVoter
+                    slot="voter"
+                    :publication="publication"
+                    :user="user"
+                    @modifiee="onPublicationModifee($event)"
+                ></VueVoter>
+            </VuePublication>
             <VuePublicationFormulaire
                 :ouvert="formulairePublicationOuvert"
                 @publicationCree="onPublicationCree($event)"
@@ -56,19 +63,24 @@
     import GabaritPublications from '../gabarits/GabaritPublications.vue';
     import VuePublication from '../components/VuePublication.vue';
     import { MediaQueries } from '@ulaval/modul-components/dist/mixins/media-queries/media-queries';
+    import { User } from '../../modules/User/UserDomaine';
+    import VueVoter from './VueVoter.vue';
 
     const publicationModule = namespace('publication');
 
     @Component({
         components: {
             VuePublication,
-            VuePublicationFormulaire
+            VuePublicationFormulaire,
+            VueVoter
         },
         mixins: [MediaQueries]
     })
     export default class VueListePublications extends Vue {
         @Prop()
         public publications!: Publications;
+        @Prop({ required: true })
+        public user!: User;
 
         @Emit('ajouter-publication')
         public emitAjouterPublication(publication: Publication) {}
