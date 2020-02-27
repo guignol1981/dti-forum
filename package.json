@@ -9,7 +9,8 @@
         "build": "vue-cli-service build",
         "test:unit": "vue-cli-service test:unit",
         "lint": "vue-cli-service lint",
-        "file-gen-cli": "./node_modules/.bin/file-gen-cli"
+        "file-gen-cli": "./node_modules/.bin/file-gen-cli",
+        "postinstall": "vue-cli-service build --prod"
     },
     "dependencies": {
         "@ulaval/modul-components": "^1.0.5",
