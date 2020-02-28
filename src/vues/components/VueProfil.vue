@@ -15,6 +15,7 @@
                 >
             </p>
         </div>
+        <m-button @click="onDeconnecterClicked()">Deconnecter</m-button>
     </div>
 </template>
 
@@ -22,8 +23,12 @@
     import Vue from 'vue';
     import { Component, Prop, Emit } from 'vue-property-decorator';
     import { namespace } from 'vuex-class';
-    import { GETTER_USER } from '../../modules/User/UserModuleDefinitions';
+    import {
+        GETTER_USER,
+        ACTION_LOGOUT
+    } from '../../modules/User/UserModuleDefinitions';
     import { User } from '../../modules/User/UserDomaine';
+    import { NomRoutes } from '../../router';
 
     const userModule = namespace('user');
 
@@ -31,6 +36,14 @@
     export default class VueProfil extends Vue {
         @userModule.Getter(GETTER_USER)
         public user!: User;
+
+        @userModule.Action(ACTION_LOGOUT)
+        public logout!: () => void;
+
+        public onDeconnecterClicked(): void {
+            this.logout();
+            this.$router.push({ name: NomRoutes.LOGIN });
+        }
     }
 </script>
 

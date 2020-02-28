@@ -57,6 +57,7 @@ router.put('/:id', authenticate, (req, res) => {
             if (err) throw err;
 
             Object.assign(doc, req.body);
+
             doc.save().then(doc => {
                 res.send({
                     data: doc,

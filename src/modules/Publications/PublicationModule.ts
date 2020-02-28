@@ -6,6 +6,7 @@ import {
     ACTION_CHERCHER_PUBLICATIONS,
     ACTION_CONSULTER_PUBLICATION,
     ACTION_MODIFIER_PUBLICATION,
+    ACTION_MODIFIER_PUBLICATION_CONSULTATION,
     ACTION_SUPPRIMER_PUBLICATION,
     GETTER_PUBLICATIONS,
     GETTER_PUBLICATION_CONSULTATION,
@@ -90,6 +91,19 @@ export function PublicationModuleFactory(
                     .then((publication: Publication) =>
                         context.commit(
                             MUTATION_MODIFIER_PUBLICATION,
+                            publication
+                        )
+                    );
+            },
+            [ACTION_MODIFIER_PUBLICATION_CONSULTATION]: (
+                context: ActionContext<PublicationState, AppState>,
+                publication: Publication
+            ): void => {
+                context.state.restService
+                    .modifier(publication)
+                    .then((publication: Publication) =>
+                        context.commit(
+                            MUTATION_PUBLICATION_CONSULTATION,
                             publication
                         )
                     );

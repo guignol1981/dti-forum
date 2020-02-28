@@ -1,6 +1,5 @@
 <template>
     <div class="m-u--app-body">
-        <m-button @click="onDeconnecterClicked()">Deconnecter</m-button>
         <router-view></router-view>
     </div>
 </template>
@@ -8,27 +7,9 @@
 <script lang="ts">
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import { namespace } from 'vuex-class';
-    import {
-        ACTION_CHERCHER_USER,
-        GETTER_USER,
-        ACTION_LOGOUT
-    } from './modules/User/UserModuleDefinitions';
-    import { User } from './modules/User/UserDomaine';
-    import { NomRoutes } from './router';
-
-    const userModule = namespace('user');
 
     @Component
-    export default class App extends Vue {
-        @userModule.Action(ACTION_LOGOUT)
-        public logout!: () => void;
-
-        public onDeconnecterClicked(): void {
-            this.logout();
-            this.$router.push({ name: NomRoutes.LOGIN });
-        }
-    }
+    export default class App extends Vue {}
 </script>
 
 <style lang="scss">

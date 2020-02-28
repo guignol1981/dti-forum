@@ -22,7 +22,7 @@
 <script lang="ts">
     import Vue from 'vue';
     import Component from 'vue-class-component';
-    import { Prop, Emit } from 'vue-property-decorator';
+    import { Prop, Emit, Watch } from 'vue-property-decorator';
     import { Publication } from '../../modules/Publications/PublicationDomaine';
     import { User } from '../../modules/User/UserDomaine';
     const _ = require('lodash');
@@ -36,6 +36,11 @@
 
         @Emit('modifiee')
         public emitModifiee(publication: Publication): void {}
+
+        @Watch('publication')
+        public test(): void {
+            console.log('test');
+        }
 
         public get hasUpvote(): boolean {
             return !!this.publication.upvotes!.find(u => u == this.user._id);

@@ -39,7 +39,8 @@
     import {
         GETTER_PUBLICATION_CONSULTATION,
         ACTION_CONSULTER_PUBLICATION,
-        ACTION_MODIFIER_PUBLICATION
+        ACTION_MODIFIER_PUBLICATION,
+        ACTION_MODIFIER_PUBLICATION_CONSULTATION
     } from '../../modules/Publications/PublicationModuleDefinition';
     import {
         GETTER_PUBLICATION_REPONSES,
@@ -80,7 +81,7 @@
 
         @publicationModule.Action(ACTION_CONSULTER_PUBLICATION)
         public consulterPublication!: (id: string) => void;
-        @publicationModule.Action(ACTION_MODIFIER_PUBLICATION)
+        @publicationModule.Action(ACTION_MODIFIER_PUBLICATION_CONSULTATION)
         public modifierPublication!: (publication: Publication) => void;
         @publicationReponseModule.Action(ACTION_CHERCHER_PUBLICATION_REPONSES)
         public chercherPublicationReponses!: () => void;
