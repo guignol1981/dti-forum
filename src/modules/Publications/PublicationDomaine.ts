@@ -4,7 +4,7 @@ export interface Publication {
     _id?: string;
     titre: string;
     corps: string;
-    author?: User;
+    auteur?: User;
     upvotes?: string[];
     downvotes?: string[];
 }

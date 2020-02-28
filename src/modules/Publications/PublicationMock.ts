@@ -8,7 +8,7 @@ export const SET_2: Publications = new Array(RandomMinMax(30, 100))
             i++,
             {
                 _id: i.toString(),
-                author: { _id: '1', username: 'test', email: 'test@test.com' },
+                auteur: { _id: '1', username: 'test', email: 'test@test.com' },
                 titre: LoremGenerate(RandomMinMax(10, 10)),
                 corps: LoremGenerate(RandomMinMax(20, 400)),
                 upvotes: [],

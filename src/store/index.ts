@@ -2,17 +2,33 @@ import PublicationReponseModuleFactory from '@/modules/PublicationReponse/Public
 import PublicationModuleFactory from '@/modules/Publications/PublicationModule';
 import UserModuleFactory from '@/modules/User/UserModule';
 import Vue from 'vue';
-import Vuex, { Store } from 'vuex';
+import Vuex, { Store, ActionContext } from 'vuex';
 
 Vue.use(Vuex);
 
-export class AppState {}
+export class AppState {
+    erreur: string = '';
+}
 
 const appState = new AppState();
 
 export function StoreFactory(): Store<AppState> {
-    return new Vuex.Store({
+    return new Vuex.Store<AppState>({
         state: appState,
+        getters: {
+            erreur: (state: AppState) => state.erreur
+        },
+        mutations: {
+            erreur: (state: AppState, erreur: string) => (state.erreur = erreur)
+        },
+        actions: {
+            modifierErreur: (
+                context: ActionContext<AppState, AppState>,
+                erreur: string
+            ) => {
+                context.commit('erreur', erreur);
+            }
+        },
         modules: {
             publication: PublicationModuleFactory(appState),
             publicationReponse: PublicationReponseModuleFactory(appState),

@@ -22,6 +22,12 @@
                 @submit="onSubmit($event)"
             ></VueRegisterFormulaire>
         </m-slide-transition>
+        <m-validation-message
+            v-if="erreur"
+            class="m-u--margin-top"
+            :error="true"
+            :error-message="erreur"
+        ></m-validation-message>
     </GabaritLogin>
 </template>
 
@@ -37,12 +43,15 @@
     } from '@ulaval/modul-components';
     import VueSignInFormulaire from '../components/VueSignInFormulaire.vue';
     import VueRegisterFormulaire from '../components/VueRegisterFormulaire.vue';
-    import { namespace } from 'vuex-class';
+    import { namespace, Getter } from 'vuex-class';
     import {
-        ACTION_ENREGISTRER_USER,
-        ACTION_SIGNIN
+        GETTER_LOGIN_STATUS,
+        ACTION_REGISTER,
+        ACTION_SIGN_IN
     } from '../../modules/User/UserModuleDefinitions';
     import { NomRoutes } from '../../router';
+    import { LoginStatus } from '../../modules/User/UserDomaine';
+    import { Watch } from 'vue-property-decorator';
 
     const userModule = namespace('user');
 
@@ -59,17 +68,29 @@
         }
     })
     export default class PageLogin extends Vue {
-        @userModule.Action(ACTION_ENREGISTRER_USER)
+        @Getter('erreur') erreur!: string;
+
+        @userModule.Getter(GETTER_LOGIN_STATUS)
+        public loginStatus!: LoginStatus;
+
+        @userModule.Action(ACTION_REGISTER)
         public enregistrerUser!: (credential: {
             email: string;
             password: string;
         }) => void;
 
-        @userModule.Action(ACTION_SIGNIN)
+        @userModule.Action(ACTION_SIGN_IN)
         public signIn!: (credential: {
             email: string;
             password: string;
         }) => void;
+
+        @Watch('loginStatus')
+        public onLoginStatusChange(): void {
+            if (this.loginStatus === LoginStatus.SUCCES) {
+                this.$router.push({ name: NomRoutes.PUBLICATIONS });
+            }
+        }
 
         public pageLoginModes = PageLoginModes;
         public mode: PageLoginModes = PageLoginModes.SIGN_IN;
@@ -88,10 +109,6 @@
             } else {
                 this.signIn(credential);
             }
-
-            setTimeout(() => {
-                this.$router.push({ name: NomRoutes.PUBLICATIONS });
-            }, 1000);
         }
 
         public get slideTransitionDirection(): string {

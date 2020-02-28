@@ -25,7 +25,7 @@
     import { namespace } from 'vuex-class';
     import {
         GETTER_USER,
-        ACTION_LOGOUT
+        ACTION_SIGN_OUT
     } from '../../modules/User/UserModuleDefinitions';
     import { User } from '../../modules/User/UserDomaine';
     import { NomRoutes } from '../../router';
@@ -37,11 +37,11 @@
         @userModule.Getter(GETTER_USER)
         public user!: User;
 
-        @userModule.Action(ACTION_LOGOUT)
-        public logout!: () => void;
+        @userModule.Action(ACTION_SIGN_OUT)
+        public signOut!: () => void;
 
         public onDeconnecterClicked(): void {
-            this.logout();
+            this.signOut();
             this.$router.push({ name: NomRoutes.LOGIN });
         }
     }

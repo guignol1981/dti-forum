@@ -1,4 +1,4 @@
-import { AppState } from '@/store/factory';
+import { AppState } from '@/store';
 import { ActionContext, Module } from 'vuex';
 import { Publication, Publications } from './PublicationDomaine';
 import {

@@ -5,3 +5,9 @@ export interface User {
 }
 
 export type Users = User[];
+
+export enum LoginStatus {
+    PRISTINE = 'pristine',
+    SUCCES = 'succes',
+    ECHEC = 'echec'
+}

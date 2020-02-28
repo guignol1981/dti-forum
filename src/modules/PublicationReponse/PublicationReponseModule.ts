@@ -1,5 +1,5 @@
 import { Module, ActionContext } from 'vuex';
-import { AppState } from '@/store/factory';
+import { AppState } from '@/store';
 import PublicationReponseState from './PublicationReponseState';
 import { PublicationReponses } from './PublicationReponseDomaine';
 import { modifierPublicationReponses } from './PublicationReponseMutations';

@@ -1,5 +1,5 @@
 import RestService from '@/rest-service';
-import { AppState } from '@/store/factory';
+import { AppState } from '@/store';
 import { Publication, Publications } from './PublicationDomaine';
 import { PublicationServiceFactory } from './PublicationServiceFactory';
 

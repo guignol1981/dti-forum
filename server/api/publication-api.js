@@ -6,7 +6,7 @@ const authenticate = require('../passport/authenticate');
 
 router.get('/:id', authenticate, (req, res) => {
     PublicationModel.findById(req.params.id)
-        .populate('author')
+        .populate('auteur')
         .exec((err, doc) => {
             if (err) {
                 throw err;
@@ -21,7 +21,7 @@ router.get('/:id', authenticate, (req, res) => {
 
 router.get('/', authenticate, (req, res) => {
     PublicationModel.find()
-        .populate('author')
+        .populate('auteur')
         .exec((err, docs) => {
             if (err) {
                 throw err;
@@ -36,7 +36,7 @@ router.get('/', authenticate, (req, res) => {
 
 router.post('/', authenticate, (req, res) => {
     PublicationModel.create(
-        Object.assign(req.body, { author: req.user }),
+        Object.assign(req.body, { auteur: req.user }),
         (err, doc) => {
             if (err) {
                 throw err;
@@ -52,7 +52,7 @@ router.post('/', authenticate, (req, res) => {
 
 router.put('/:id', authenticate, (req, res) => {
     PublicationModel.findById(req.params.id)
-        .populate('author')
+        .populate('auteur')
         .exec((err, doc) => {
             if (err) throw err;
 

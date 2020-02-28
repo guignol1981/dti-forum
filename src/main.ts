@@ -3,7 +3,7 @@ import '@ulaval/modul-components/dist/modul.min.css';
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router';
-import { StoreFactory } from './store/factory';
+import { StoreFactory } from './store';
 import FilterPlugin from './VuePlugins/FilterPlugin';
 import FrPlugin from './VuePlugins/FrPlugin';
 import InterceptorPlugin from './VuePlugins/InterceptorPlugin';
@@ -12,12 +12,14 @@ Vue.use(ModulComponentPlugin);
 Vue.use(FrenchPlugin);
 Vue.use(FrPlugin);
 Vue.use(FilterPlugin);
-Vue.use(InterceptorPlugin);
+
+const store = StoreFactory();
+Vue.use(InterceptorPlugin, { store });
 
 Vue.config.productionTip = false;
 
 new Vue({
-    store: StoreFactory(),
+    store,
     router,
     render: h => h(App)
 }).$mount('#app');

@@ -65,27 +65,27 @@ export default class UserService implements RestService<User> {
                 rawUrl: `${this.baseUrl}/register`,
                 data: credential
             })
-            .then(response => response.data);
+            .then(response => true);
     }
 
     public signIn(credential: {
         email: string;
         password: string;
-    }): Promise<User> {
-        return this.httpService
-            .execute<User>({
-                method: 'post',
-                rawUrl: `${this.baseUrl}/login`,
-                data: credential
-            })
-            .then((reponse: any) => reponse.data);
-    }
-
-    public logout(): Promise<boolean> {
+    }): Promise<boolean> {
         return this.httpService
             .execute<boolean>({
                 method: 'post',
-                rawUrl: `${this.baseUrl}/logout`
+                rawUrl: `${this.baseUrl}/sign-in`,
+                data: credential
+            })
+            .then((reponse: any) => true);
+    }
+
+    public signOut(): Promise<boolean> {
+        return this.httpService
+            .execute<boolean>({
+                method: 'post',
+                rawUrl: `${this.baseUrl}/sign-out`
             })
             .then(() => true);
     }

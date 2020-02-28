@@ -13,7 +13,7 @@
                         src="https://cdn5.vectorstock.com/i/1000x1000/99/94/default-avatar-placeholder-profile-icon-male-vector-23889994.jpg"
                     />
                 </div>
-                Author: {{ publication.author.username }}
+                <span> auteur: {{ publication.auteur.username }} </span>
             </div>
 
             <h2 class="publication__title">
@@ -26,7 +26,7 @@
             <div>
                 <m-link :url="publicationDetailsLocation">Détails</m-link>
                 <m-icon-button
-                    v-if="publication.author._id === this.user._id"
+                    v-if="publication.auteur._id === this.user._id"
                     @click="emitSupprimee(publication._id)"
                     iconName="m-svg__delete"
                     buttonSize="32px"
@@ -54,6 +54,7 @@
     export default class VuePublication extends Vue {
         @Prop({ required: true })
         public publication!: Publication;
+
         @Emit('supprimee')
         public emitSupprimee(id: string): void {}
         @Emit('modifiee')

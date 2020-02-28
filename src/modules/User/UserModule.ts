@@ -1,15 +1,17 @@
-import { AppState } from '@/store/factory';
+import { AppState } from '@/store';
 import { ActionContext, Module } from 'vuex';
-import { User, Users } from './UserDomaine';
+import { User, Users, LoginStatus } from './UserDomaine';
 import {
     ACTION_CHERCHER_USER,
-    ACTION_ENREGISTRER_USER,
-    ACTION_LOGOUT,
-    ACTION_SIGNIN,
+    ACTION_REGISTER,
+    ACTION_SIGN_OUT,
+    ACTION_SIGN_IN,
     GETTER_USER,
-    MUTATION_USER
+    MUTATION_USER,
+    MUTATION_LOGIN_STATUS,
+    GETTER_LOGIN_STATUS
 } from './UserModuleDefinitions';
-import { modifierUser } from './UserMutations';
+import { modifierUser, modifierLoginStatus } from './UserMutations';
 import UserService from './UserService';
 import UserState from './UserState';
 
@@ -20,11 +22,14 @@ export function UserModuleFactory(
         namespaced: true,
         state: new UserState(appState),
         getters: {
-            [GETTER_USER]: (state: UserState) => state.user
+            [GETTER_USER]: (state: UserState) => state.user,
+            [GETTER_LOGIN_STATUS]: (state: UserState) => state.loginStatus
         },
         mutations: {
             [MUTATION_USER]: (state: UserState, user: User): void =>
-                modifierUser(state, user)
+                modifierUser(state, user),
+            [MUTATION_LOGIN_STATUS]: (state: UserState, status: LoginStatus) =>
+                modifierLoginStatus(state, status)
         },
         actions: {
             [ACTION_CHERCHER_USER]: (
@@ -36,30 +41,48 @@ export function UserModuleFactory(
                         context.commit(MUTATION_USER, users)
                     );
             },
-            [ACTION_ENREGISTRER_USER]: (
+            [ACTION_REGISTER]: (
                 context: ActionContext<UserState, AppState>,
                 credential: {
-                    username?: string;
+                    username: string;
                     email: string;
                     password: string;
                 }
             ): void => {
-                context.state.restService.creer(credential as User);
+                (context.state.restService as UserService)
+                    .register(credential)
+                    .then(() =>
+                        context.commit(
+                            MUTATION_LOGIN_STATUS,
+                            LoginStatus.SUCCES
+                        )
+                    );
             },
-            [ACTION_SIGNIN]: (
+            [ACTION_SIGN_IN]: (
                 context: ActionContext<UserState, AppState>,
                 credential: { email: string; password: string }
             ): void => {
                 (context.state.restService as UserService)
                     .signIn(credential)
-                    .then((user: User) => context.commit(MUTATION_USER, user));
+                    .then(() =>
+                        context.commit(
+                            MUTATION_LOGIN_STATUS,
+                            LoginStatus.SUCCES
+                        )
+                    );
             },
-            [ACTION_LOGOUT]: (
+            [ACTION_SIGN_OUT]: (
                 context: ActionContext<UserState, AppState>
             ): void => {
                 (context.state.restService as UserService)
-                    .logout()
-                    .then(() => context.commit(MUTATION_USER, null));
+                    .signOut()
+                    .then(() => {
+                        context.commit(MUTATION_USER, null);
+                        context.commit(
+                            MUTATION_LOGIN_STATUS,
+                            LoginStatus.PRISTINE
+                        );
+                    });
             }
         }
     };

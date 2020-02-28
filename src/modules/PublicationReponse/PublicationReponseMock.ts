@@ -11,7 +11,10 @@ export const SET_1: PublicationReponses = new Array(
             {
                 id: i.toString(),
                 publicationId: '1',
-                corps: LoremGenerate(Math.floor(Math.random() * 100))
+                corps: LoremGenerate(Math.floor(Math.random() * 100)),
+                upvotes: [],
+                downvotes: [],
+                best: false
             }
         )
     );

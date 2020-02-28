@@ -17,14 +17,14 @@ router.get('/', authenticate, (req, res) => {
     });
 });
 
-router.post('/login', passport.authenticate('local'), (req, res) => {
+router.post('/sign-in', passport.authenticate('local'), (req, res) => {
     res.send({
         data: true,
         msg: 'Login successful'
     });
 });
 
-router.post('/logout', (req, res) => {
+router.post('/sign-out', (req, res) => {
     req.logout();
 
     res.send({

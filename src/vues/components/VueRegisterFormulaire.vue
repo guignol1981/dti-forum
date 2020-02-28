@@ -30,6 +30,7 @@
             :error="passwordControl.hasError()"
             :error-message="passwordControl.errorMessage"
         ></m-textfield>
+
         <m-textfield
             v-model="confirmPasswordControl.value"
             v-m-control="confirmPasswordControl"
@@ -64,7 +65,10 @@
         RequiredValidator,
         CompareValidator,
         ControlValidatorValidationType,
-        ControlValidator
+        ControlValidator,
+        EmailValidator,
+        MinLengthValidator,
+        BetweenValidator
     } from '@ulaval/modul-components';
 
     @Component
@@ -75,8 +79,14 @@
         public formGroup: FormGroup = new FormGroup(
             {
                 username: new FormControl<string>([RequiredValidator()]),
-                email: new FormControl<string>([RequiredValidator()]),
-                password: new FormControl<string>([RequiredValidator()]),
+                email: new FormControl<string>([
+                    RequiredValidator(),
+                    EmailValidator()
+                ]),
+                password: new FormControl<string>([
+                    RequiredValidator(),
+                    MinLengthValidator(3)
+                ]),
                 confirmPassword: new FormControl<string>([])
             },
             [
