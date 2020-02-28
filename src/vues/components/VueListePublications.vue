@@ -96,7 +96,9 @@
 
         public get publicationsFiltrees(): Publications {
             return this.publications.filter(p =>
-                p.titre.includes(this.valeurRecherche)
+                p.titre
+                    .toLowerCase()
+                    .includes(this.valeurRecherche.toLowerCase())
             );
         }
 
@@ -127,8 +129,6 @@
         public onFormulaireFerme(): void {
             this.formulairePublicationOuvert = false;
         }
-
-        public onSearch(recherche: string): void {}
 
         public scrollToTop(): void {
             const offsetToScroll: number =
