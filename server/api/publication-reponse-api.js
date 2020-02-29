@@ -4,7 +4,7 @@ const PublicationReponseModel = require('../models/publication-reponse');
 const authenticate = require('../passport/authenticate');
 
 router.get('/publication/:id', authenticate, (req, res) => {
-    PublicationReponseModel.find({ publicatonId: req.params.id })
+    PublicationReponseModel.find({ publicationId: req.params.id })
         .populate('author')
         .exec((err, doc) => {
             if (err) throw err;
@@ -17,10 +17,8 @@ router.get('/publication/:id', authenticate, (req, res) => {
 });
 
 router.post('/', authenticate, (req, res) => {
-    PublicationReponseModel.create(req.body, (err, doc) => {
+    PublicationReponseModel.create(Object.assign(req.body, { auteur: req.user }), (err, doc) => {
         if (err) throw err;
-
-        doc.auteur = req.user;
 
         res.send({
             data: doc,

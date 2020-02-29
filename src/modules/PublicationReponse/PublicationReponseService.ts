@@ -56,7 +56,7 @@ export class PublicationReponseService
         return this.httpService
             .execute<PublicationReponse>({
                 method: 'put',
-                rawUrl: `${this.baseUrl}/${publicationReponse.id}`,
+                rawUrl: `${this.baseUrl}/${publicationReponse._id}`,
                 data: publicationReponse
             })
             .then(response => response.data);

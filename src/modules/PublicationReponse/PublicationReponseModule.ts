@@ -7,14 +7,17 @@ import {
 } from './PublicationReponseDomaine';
 import {
     modifierPublicationReponses,
-    ajouterPublicationReponse
+    ajouterPublicationReponse,
+    modifierPublicationReponse
 } from './PublicationReponseMutations';
 import {
     GETTER_PUBLICATION_REPONSES,
     MUTATION_PUBLICATION_REPONSES,
     ACTION_CHERCHER_PUBLICATION_REPONSES,
     ACTION_AJOUTER_PUBLICATION_REPONSE,
-    MUTATION_AJOUTER_PUBLICATION_REPONSE
+    MUTATION_AJOUTER_PUBLICATION_REPONSE,
+    ACTION_MODIFIER_PUBLICATION_REPONSE,
+    MUTATION_MODIFIER_PUBLICATION_REPONSE
 } from './PublicationReponseModuleDefinitions';
 import { PublicationReponseService } from './PublicationReponseService';
 import { Publication } from '../Publications/PublicationDomaine';
@@ -38,7 +41,8 @@ export function PublicationReponseModuleFactory(
             [MUTATION_AJOUTER_PUBLICATION_REPONSE]: (
                 state: PublicationReponseState,
                 publicationReponse: PublicationReponse
-            ) => ajouterPublicationReponse(state, publicationReponse)
+            ) => ajouterPublicationReponse(state, publicationReponse),
+            [MUTATION_MODIFIER_PUBLICATION_REPONSE]: (state: PublicationReponseState, publicationReponse: PublicationReponse) => modifierPublicationReponse(state, publicationReponse)
         },
         actions: {
             [ACTION_CHERCHER_PUBLICATION_REPONSES]: (
@@ -65,6 +69,18 @@ export function PublicationReponseModuleFactory(
                             MUTATION_AJOUTER_PUBLICATION_REPONSE,
                             publicationReponse
                         )
+                    );
+            },
+            [ACTION_MODIFIER_PUBLICATION_REPONSE]: (
+                context: ActionContext<PublicationReponseState, AppState>,
+                publicationReponse: PublicationReponse
+            ): void => {
+                context.state.restService
+                    .modifier(publicationReponse)
+                    .then((publicationReponse: PublicationReponse) =>
+                        context.commit(
+                            MUTATION_MODIFIER_PUBLICATION_REPONSE,
+                            publicationReponse)
                     );
             }
         }

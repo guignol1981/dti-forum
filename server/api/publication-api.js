@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const PublicationModel = require('../models/publication');
+const PublicationReponseModel = require('../models/publication-reponse');
 const authenticate = require('../passport/authenticate');
 
 router.get('/:id', authenticate, (req, res) => {
@@ -22,9 +23,7 @@ router.get('/', authenticate, (req, res) => {
     PublicationModel.find()
         .populate('auteur')
         .exec((err, docs) => {
-            if (err) {
-                throw err;
-            }
+            if (err) throw err;
 
             res.send({
                 data: docs,

@@ -1,12 +1,11 @@
 import { User } from '../User/UserDomaine';
+import { Votable } from '../Publications/PublicationDomaine';
 
-export interface PublicationReponse {
-    id?: string;
+export interface PublicationReponse extends Votable {
+    _id?: string;
     auteur?: User;
     publicationId?: string;
     corps: string;
-    upvotes?: string[];
-    downvotes?: string[];
     best?: boolean;
 }
 

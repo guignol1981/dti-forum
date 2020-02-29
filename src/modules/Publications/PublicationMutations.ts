@@ -5,7 +5,9 @@ export function modifierPublications(
     state: PublicationState,
     publications: Publications
 ): void {
-    state.publications = [...publications];
+    state.publications = [...publications.sort(
+        (a, b) => a.upvotes!.length < b.upvotes!.length ? 1 : a.upvotes!.length > b.upvotes!.length ? -1 : 0
+    )];
 }
 
 export function modifierPublication(

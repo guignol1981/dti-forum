@@ -1,12 +1,15 @@
 import { User } from '../User/UserDomaine';
 
-export interface Publication {
+export interface Votable {
+    upvotes?: string[];
+    downvotes?: string[];
+}
+
+export interface Publication extends Votable {
     _id?: string;
     titre: string;
     corps: string;
     auteur?: User;
-    upvotes?: string[];
-    downvotes?: string[];
 }
 
 export type Publications = Publication[];

@@ -7,10 +7,10 @@ export const SET_1: PublicationReponses = new Array(
     .fill(undefined)
     .map(
         (_, i) => (
-            i++,
+            i++ ,
             {
                 id: i.toString(),
-                auteur: {},
+                auteur: { _id: '1', username: 'test', email: 'test@test.com' },
                 publicationId: '1',
                 corps: LoremGenerate(Math.floor(Math.random() * 100)),
                 upvotes: [],
