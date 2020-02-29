@@ -13,6 +13,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const userApi = require('./server/api/user-api');
 const publicationApi = require('./server/api/publication-api');
+const publicationReponseApi = require('./server/api/publication-reponse-api');
 
 mongoose.connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -39,6 +40,7 @@ app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/api/users', userApi);
 app.use('/api/publications', publicationApi);
+app.use('/api/publication-reponses', publicationReponseApi);
 
 app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'dist/index.html')));
 

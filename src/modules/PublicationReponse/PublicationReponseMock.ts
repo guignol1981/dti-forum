@@ -10,6 +10,7 @@ export const SET_1: PublicationReponses = new Array(
             i++,
             {
                 id: i.toString(),
+                auteur: {},
                 publicationId: '1',
                 corps: LoremGenerate(Math.floor(Math.random() * 100)),
                 upvotes: [],

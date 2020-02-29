@@ -11,7 +11,7 @@
             :error="corpsControl.hasError()"
             :error-message="corpsControl.errorMessage"
         ></m-textarea>
-        <!-- <m-button type="submit">Répondre</m-button> -->
+        <m-button type="submit">Répondre</m-button>
     </m-form>
 </template>
 
@@ -28,7 +28,7 @@
 
     @Component
     export default class VuePublicationReponseFormulaire extends Vue {
-        @Emit('publicationReponseCree')
+        @Emit('cree')
         public emitPublicationReponseCree(
             publicationReponse: PublicationReponse
         ): void {}

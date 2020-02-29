@@ -21,6 +21,7 @@
         </VuePublicationDetails>
         <VuePublicationReponseFormulaire
             class="m-u--margin-top--xl"
+            @cree="onPublicationReponseCree($event)"
         ></VuePublicationReponseFormulaire>
         <VuePublicationReponses
             class="m-u--margin-top--xxl"
@@ -44,9 +45,13 @@
     } from '../../modules/Publications/PublicationModuleDefinition';
     import {
         GETTER_PUBLICATION_REPONSES,
-        ACTION_CHERCHER_PUBLICATION_REPONSES
+        ACTION_CHERCHER_PUBLICATION_REPONSES,
+        ACTION_AJOUTER_PUBLICATION_REPONSE
     } from '../../modules/PublicationReponse/PublicationReponseModuleDefinitions';
-    import { PublicationReponses } from '../../modules/PublicationReponse/PublicationReponseDomaine';
+    import {
+        PublicationReponses,
+        PublicationReponse
+    } from '../../modules/PublicationReponse/PublicationReponseDomaine';
     import { Publication } from '../../modules/Publications/PublicationDomaine';
     import GabaritPublication from '../gabarits/GabaritPublication.vue';
     import VuePublication from '../components/VuePublication.vue';
@@ -83,15 +88,26 @@
         public consulterPublication!: (id: string) => void;
         @publicationModule.Action(ACTION_MODIFIER_PUBLICATION_CONSULTATION)
         public modifierPublication!: (publication: Publication) => void;
+        @publicationReponseModule.Action(ACTION_AJOUTER_PUBLICATION_REPONSE)
+        public ajouterPublicationReponse!: (
+            publicationReponse: PublicationReponse
+        ) => void;
         @publicationReponseModule.Action(ACTION_CHERCHER_PUBLICATION_REPONSES)
-        public chercherPublicationReponses!: () => void;
+        public chercherPublicationReponses!: (publicationId: string) => void;
         public nomRoutePublication: string = NomRoutes.PUBLICATIONS;
 
         protected created(): void {
             this.consulterPublication(this.$route.params['id']);
-            // this.chercherPublicationReponses();
+            this.chercherPublicationReponses(this.$route.params['id']);
 
             this.$scrollTo.goToTop();
+        }
+
+        public onPublicationReponseCree(
+            publicationReponse: PublicationReponse
+        ): void {
+            publicationReponse.publicationId = this.publication._id;
+            this.ajouterPublicationReponse(publicationReponse);
         }
     }
 </script>
