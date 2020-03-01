@@ -37,11 +37,6 @@
 		@Emit('modifiee')
 		public emitModifiee(votable: Votable): void {}
 
-		@Watch('publication')
-		public test(): void {
-			console.log('test');
-		}
-
 		public get hasUpvote(): boolean {
 			return !!this.votable.upvotes!.find(u => u == this.user._id);
 		}

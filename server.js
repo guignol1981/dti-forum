@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
+	require('dotenv').config();
 }
 
 const express = require('express');
@@ -16,16 +16,16 @@ const publicationApi = require('./server/api/publication-api');
 const publicationReponseApi = require('./server/api/publication-reponse-api');
 
 mongoose.connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+	useNewUrlParser: true,
+	useUnifiedTopology: true
 });
 
 const MongoStore = require('connect-mongo')(expressSession);
 const sessionMiddleWare = expressSession({
-    secret: 'test',
-    resave: false,
-    saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection })
+	secret: 'test',
+	resave: false,
+	saveUninitialized: true,
+	store: new MongoStore({ mongooseConnection: mongoose.connection })
 });
 
 require('./server/passport/serializer');
@@ -45,7 +45,7 @@ app.use('/api/publication-reponses', publicationReponseApi);
 app.get('*', (_, res) => res.sendFile(path.join(__dirname, 'dist/index.html')));
 
 server.listen(process.env.PORT, () =>
-    console.log(
-        `Dti-Overflow is running and listening on port ${process.env.PORT}`
-    )
+	console.log(
+		`Dti-Overflow is running and listening on port ${process.env.PORT}`
+	)
 );
